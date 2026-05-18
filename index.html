@@ -4,6 +4,13 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>金多賢 · 健身筆記</title>
+<meta name="description" content="金多賢的健身筆記——動作教學、飲食觀念、課表安排與訓練工具，30+ 篇有科學根據的文章。">
+<meta property="og:title" content="金多賢 · 健身筆記">
+<meta property="og:description" content="金多賢的健身筆記——動作教學、飲食觀念、課表安排與訓練工具，30+ 篇有科學根據的文章。">
+<meta property="og:type" content="website">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="金多賢 · 健身筆記">
+<meta name="twitter:description" content="金多賢的健身筆記——動作教學、飲食觀念、課表安排與訓練工具。">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500&family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap');
 
@@ -23,8 +30,138 @@
   --ease-out-expo:cubic-bezier(0.16,1,0.3,1);
   --ease-spring:cubic-bezier(0.34,1.56,0.64,1);
 }
+/* ===== DARK MODE ===== */
+body.dark-mode{
+  --bg:#0f0f0e;
+  --ink:#f0f0ec;
+  --ink-2:#d4d4ce;
+  --ink-3:#a8a8a0;
+  --ink-4:#868680;
+  --ink-5:#686860;
+  --border:#2a2a28;--border-light:#222220;
+  --surface:#1a1a18;--surface-2:#222220;--surface-3:#1a1a18;
+}
+body.dark-mode nav{background:rgba(15,15,14,.92);border-bottom-color:rgba(42,42,40,.8)}
+
+/* ── 修正：inline style hardcoded 顏色在 dark mode 下不可見 ── */
+/* 文章標題 h2 inline color:#1c1c1a */
+body.dark-mode [style*="color:#1c1c1a"]{color:#d4d4ce!important}
+body.dark-mode [style*="color:#000000"]{color:#d4d4ce!important}
+body.dark-mode [style*="color:#888884"]{color:#868680!important}
+/* SFR score 數字、rm result */
+body.dark-mode #sfr-score-val{color:#f0f0ec!important}
+body.dark-mode #sfr-verdict{background:#222220!important;border-color:#2a2a28!important;color:#d4d4ce!important}
+body.dark-mode #rmOneRM2{color:#f0f0ec!important}
+/* calc-range accent */
+body.dark-mode .calc-range{accent-color:#f0f0ec}
+/* rm-ftab active */
+body.dark-mode .rm-ftab.active{background:#f0f0ec;color:#0f0f0e;border-color:#f0f0ec}
+body.dark-mode .feat-card{background:#1a1a18}
+body.dark-mode .knowledge-card{background:#1a1a18}
+body.dark-mode .calc-card{background:#1a1a18}
+body.dark-mode .calc-input,.dark-mode .calc-select{background:#222220;color:#f0f0ec;border-color:#2a2a28}
+body.dark-mode .warn-box{background:#2a1f0a;border-color:#5a3a00}
+body.dark-mode .info-box{background:#0a1a2a;border-color:#1a3a5a}
+body.dark-mode .rm-result-cell{background:#222220}
+body.dark-mode .vol-summary{background:#222220}
+body.dark-mode .day-box{border-color:#2a2a28}
+body.dark-mode .day-box.active{background:#1a2a0a;border-color:#4a6a20}
+body.dark-mode .nav-drawer-inner{background:rgba(15,15,14,.96)}
+body.dark-mode .search-input{background:#1a1a18;color:#f0f0ec;border-color:#2a2a28}
+body.dark-mode .filter-tag{background:#1a1a18;color:#f0f0ec;border-color:#2a2a28}
+body.dark-mode .filter-tag:hover,.dark-mode .filter-tag.active{background:#f0f0ec;color:#0f0f0e}
+body.dark-mode .calc-btn{background:#f0f0ec;color:#0f0f0e}
+body.dark-mode .calc-btn:hover{background:#d4d4ce}
+body.dark-mode .pitfall-card{background:#1a1a18}
+body.dark-mode .video-card{background:#1a1a18}
+body.dark-mode .resource-item:hover{background:rgba(240,240,236,.04)}
+body.dark-mode .vol-add-btn{background:none;color:#686860;border-color:#2a2a28}
+body.dark-mode .vol-remove-btn{background:#1a1a18;border-color:#2a2a28;color:#a8a8a0}
+body.dark-mode .rm-result-cell.highlight{background:#f0f0ec}
+body.dark-mode .rm-result-cell.highlight .rm-weight-val{color:#0f0f0e}
+body.dark-mode .rm-result-cell.highlight .rm-reps-label,.dark-mode .rm-result-cell.highlight .rm-pct{color:#444}
+
+/* ===== INLINE ERROR MESSAGES ===== */
+.inline-error{font-size:12px;color:#e05c4a;font-family:'Noto Sans TC',sans-serif;padding:8px 12px;background:rgba(224,92,74,.08);border:1px solid rgba(224,92,74,.25);border-radius:8px;margin-top:8px;display:none}
+.inline-error.show{display:block}
+
+/* ===== DARK MODE TOGGLE BUTTON ===== */
+.dark-toggle{
+  display:flex;align-items:center;justify-content:center;
+  width:34px;height:34px;border-radius:50%;border:1px solid var(--border);
+  background:var(--surface);cursor:pointer;font-size:16px;
+  transition:all .25s cubic-bezier(0.16,1,0.3,1);flex-shrink:0;
+}
+.dark-toggle:hover{background:var(--surface-2);transform:scale(1.08)}
+
+/* ===== JOURNAL / DIARY STYLES ===== */
+.journal-entry{
+  background:var(--surface);border:1px solid var(--border);
+  border-radius:14px;padding:20px;margin-bottom:12px;
+  transition:box-shadow .3s cubic-bezier(0.16,1,0.3,1),transform .3s;
+  position:relative;
+}
+.journal-entry:hover{box-shadow:0 6px 24px rgba(28,28,26,.07);transform:translateY(-2px)}
+.journal-entry-date{font-size:11px;color:var(--ink-4);font-family:'DM Sans',sans-serif;margin-bottom:6px}
+.journal-entry-title{font-size:15px;font-weight:500;color:var(--ink);font-family:'Noto Sans TC',sans-serif;margin-bottom:8px}
+.journal-entry-body{font-size:13px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;line-height:1.7;font-weight:300}
+.journal-entry-tags{display:flex;flex-wrap:wrap;gap:5px;margin-top:10px}
+.journal-entry-tag{font-size:11px;padding:3px 9px;border-radius:20px;background:var(--surface-2);color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;border:1px solid var(--border)}
+.journal-delete-btn{position:absolute;top:14px;right:14px;background:none;border:none;cursor:pointer;font-size:14px;color:var(--ink-5);padding:4px;border-radius:6px;transition:color .15s,background .15s;line-height:1}
+.journal-delete-btn:hover{color:#e05c4a;background:rgba(224,92,74,.08)}
+.journal-form-area{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:20px}
+.journal-textarea{width:100%;padding:10px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:'Noto Sans TC',sans-serif;color:var(--ink);background:var(--surface-2);resize:vertical;min-height:80px;outline:none;transition:border-color .2s;line-height:1.7}
+.journal-textarea:focus{border-color:#aaa;background:var(--surface)}
+.journal-tag-row{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
+.journal-tag-btn{font-size:12px;padding:4px 11px;border-radius:20px;border:1px solid var(--border);color:var(--ink-3);background:var(--surface);cursor:pointer;font-family:'Noto Sans TC',sans-serif;transition:all .15s}
+.journal-tag-btn.selected{background:var(--ink);color:#fff;border-color:var(--ink)}
+.journal-empty{text-align:center;padding:40px 0;font-size:13px;color:var(--ink-4);font-family:'Noto Sans TC',sans-serif}
+
+/* ===== PROGRESS / CHART STYLES ===== */
+.progress-chart-wrap{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:20px;margin-bottom:16px}
+.progress-chart-title{font-size:13px;font-weight:500;color:var(--ink);font-family:'Noto Sans TC',sans-serif;margin-bottom:14px}
+.progress-canvas-wrap{position:relative;width:100%;height:160px}
+canvas.progress-canvas{width:100%;height:160px}
+.progress-stat-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:14px}
+.progress-stat{text-align:center;padding:10px;background:var(--surface-2);border-radius:8px}
+.progress-stat-num{font-size:18px;font-weight:500;color:var(--ink);font-family:'DM Sans',sans-serif}
+.progress-stat-label{font-size:10px;color:var(--ink-4);font-family:'Noto Sans TC',sans-serif;margin-top:2px}
+.progress-exercise-select{padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'Noto Sans TC',sans-serif;color:var(--ink);background:var(--surface-2);outline:none;cursor:pointer;margin-bottom:14px;width:100%}
+
+/* ===== SCHEDULE GENERATOR STYLES ===== */
+.sched-option-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:16px}
+@media(max-width:480px){.sched-option-grid{grid-template-columns:1fr 1fr}}
+.sched-option{border:1.5px solid var(--border);border-radius:10px;padding:10px 8px;text-align:center;cursor:pointer;transition:all .2s cubic-bezier(0.34,1.56,0.64,1);background:var(--surface)}
+.sched-option:hover{transform:translateY(-2px);box-shadow:0 4px 12px rgba(28,28,26,.08)}
+.sched-option.selected{border-color:var(--ink);background:var(--ink);color:#fff}
+.sched-option-num{font-size:20px;font-weight:500;font-family:'DM Sans',sans-serif}
+.sched-option-label{font-size:11px;font-family:'Noto Sans TC',sans-serif;margin-top:2px;opacity:.7}
+.sched-result-day{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:10px}
+.sched-day-name{font-size:12px;font-weight:500;color:var(--ink);font-family:'Noto Sans TC',sans-serif;margin-bottom:8px;display:flex;align-items:center;gap:8px}
+.sched-day-badge{font-size:10px;padding:2px 8px;border-radius:10px;background:var(--surface-2);color:var(--ink-4);border:1px solid var(--border)}
+.sched-day-badge.train{background:#e8f5e0;color:#2a5a10;border-color:#b8d88c}
+body.dark-mode .sched-day-badge.train{background:#1a2a0a;color:#7ab840;border-color:#3a5a20}
+.sched-exercise-list{font-size:13px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;line-height:1.8;font-weight:300}
+.sched-exercise-list strong{font-weight:500;color:var(--ink)}
+
+/* ===== CALORIE CALCULATOR STYLES ===== */
+.tdee-result-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:10px;margin-top:14px}
+@media(max-width:420px){.tdee-result-grid{grid-template-columns:1fr}}
+.tdee-cell{background:var(--surface-2);border-radius:10px;padding:14px;text-align:center;border:1.5px solid var(--border);transition:border-color .2s}
+.tdee-cell.highlight{border-color:var(--ink);background:var(--surface)}
+.tdee-cell-num{font-size:22px;font-weight:500;color:var(--ink);font-family:'DM Sans',sans-serif}
+.tdee-cell-label{font-size:11px;color:var(--ink-4);font-family:'Noto Sans TC',sans-serif;margin-top:3px}
+.tdee-macro-row{display:flex;align-items:center;gap:10px;margin-top:10px}
+.tdee-macro-color{width:10px;height:10px;border-radius:2px;flex-shrink:0}
+.tdee-macro-label{font-size:12px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;flex:1}
+.tdee-macro-val{font-size:12px;font-weight:500;color:var(--ink);font-family:'DM Sans',sans-serif}
+
+/* ===== ARTICLE SEARCH HIGHLIGHT ===== */
+mark{background:#ffe066;color:#1c1c1a;border-radius:2px;padding:0 2px}
+body.dark-mode mark{background:#7a5a00;color:#f0f0ec}
+
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16px}
+body{background:var(--bg);color:var(--ink);font-family:'DM Sans',sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden;font-size:16px;transition:background .3s,color .3s}
 .tc{font-family:'Noto Sans TC',sans-serif}
 a{text-decoration:none;color:inherit}
 .wrap{max-width:720px;margin:0 auto;padding:0 24px}
@@ -37,7 +174,7 @@ a{text-decoration:none;color:inherit}
   .calc-row{flex-direction:column!important}
   .rm-formula-tabs{gap:5px!important}
   .rm-result-grid{grid-template-columns:repeat(2,1fr)!important}
-  .vol-set-row,.vol-set-header{grid-template-columns:1fr 60px 52px 52px 28px!important;gap:5px!important}
+  .vol-set-row,.vol-set-header{grid-template-columns:1fr 64px 56px 56px 28px!important;gap:5px!important}
   .vol-summary-grid{grid-template-columns:repeat(2,1fr)!important}
   .video-grid{grid-template-columns:1fr!important}
   .section{padding:28px 16px!important}
@@ -76,8 +213,8 @@ nav.scrolled{box-shadow:0 1px 24px rgba(28,28,26,.06)}
   padding:6px 12px;border-radius:20px;
   transition:color .2s,background .2s;
 }
-.nav-links a:hover{color:var(--ink);background:rgba(28,28,26,.05)}
-.nav-links a.nav-active{color:var(--ink);background:rgba(28,28,26,.07);font-weight:500}
+.nav-links a:hover{color:var(--ink);background:rgba(240,240,236,.08)}
+.nav-links a.nav-active{color:var(--ink);background:rgba(240,240,236,.1);font-weight:500}
 /* hamburger */
 .nav-hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;padding:6px;background:none;border:none;border-radius:8px;transition:background .15s}
 .nav-hamburger:hover{background:rgba(28,28,26,.06)}
@@ -224,7 +361,7 @@ nav.scrolled{box-shadow:0 1px 24px rgba(28,28,26,.06)}
 .about-text{font-size:14px;line-height:1.85;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;font-weight:300}
 .about-text p+p{margin-top:14px}
 .tag-cloud{display:flex;flex-wrap:wrap;gap:7px}
-.tag{font-size:12px;padding:5px 11px;border-radius:20px;border:1px solid #e0e0da;color:#000000;font-family:'Noto Sans TC',sans-serif;transition:background .2s,color .2s,border-color .2s,transform .2s}
+.tag{font-size:12px;padding:5px 11px;border-radius:20px;border:1px solid var(--border);color:var(--ink);font-family:'Noto Sans TC',sans-serif;transition:background .2s,color .2s,border-color .2s,transform .2s}
 .tag:hover{background:var(--ink);color:#fff;border-color:var(--ink);transform:scale(1.05)}
 
 /* ===== FOOTER ===== */
@@ -244,24 +381,24 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
 .search-input:focus{border-color:#aaa;box-shadow:0 0 0 3px rgba(28,28,26,.06)}
 .search-icon{position:absolute;left:13px;top:50%;transform:translateY(-50%);color:var(--ink-5);font-size:16px;pointer-events:none}
 .tag-filters{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:20px}
-.filter-tag{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid #e0e0da;color:#000000;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s;background:var(--surface)}
+.filter-tag{font-size:12px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);color:var(--ink);font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .2s;background:var(--surface)}
 .filter-tag:hover,.filter-tag.active{background:var(--ink);color:#fff;border-color:var(--ink)}
 .post-item.hidden{display:none}
 .no-results{font-size:13px;color:var(--ink-4);font-family:'Noto Sans TC',sans-serif;padding:20px 0;text-align:center}
 
 /* ===== RM CALCULATOR ===== */
 .rm-formula-tabs{display:flex;gap:8px;margin-bottom:16px;flex-wrap:wrap}
-.rm-ftab{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid #e0e0da;color:#000000;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .15s;background:#fff}
+.rm-ftab{font-size:11px;padding:5px 12px;border-radius:20px;border:1px solid var(--border);color:var(--ink);font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:all .15s;background:var(--surface)}
 .rm-ftab.active{background:#1c1c1a;color:#fff;border-color:#1c1c1a}
 .rm-result-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin-top:4px}
 @media(max-width:480px){.rm-result-grid{grid-template-columns:repeat(3,1fr)}}
-.rm-result-cell{background:#f5f5f2;border-radius:8px;padding:10px 6px;text-align:center}
+.rm-result-cell{background:var(--surface-2);border-radius:8px;padding:10px 6px;text-align:center}
 .rm-result-cell.highlight{background:#1c1c1a}
-.rm-reps-label{font-size:10px;color:#000000;font-family:'DM Sans',sans-serif;margin-bottom:4px}
+.rm-reps-label{font-size:10px;color:var(--ink-3);font-family:'DM Sans',sans-serif;margin-bottom:4px}
 .rm-result-cell.highlight .rm-reps-label{color:#666}
-.rm-weight-val{font-size:15px;font-weight:500;color:#1c1c1a;font-family:'DM Sans',sans-serif}
+.rm-weight-val{font-size:15px;font-weight:500;color:var(--ink);font-family:'DM Sans',sans-serif}
 .rm-result-cell.highlight .rm-weight-val{color:#fff}
-.rm-pct{font-size:10px;color:#000000;font-family:'DM Sans',sans-serif;margin-top:2px}
+.rm-pct{font-size:10px;color:var(--ink-3);font-family:'DM Sans',sans-serif;margin-top:2px}
 .rm-result-cell.highlight .rm-pct{color:#888}
 
 /* ===== VOLUME TRACKER ===== */
@@ -269,73 +406,74 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
 @media(max-width:500px){.vol-set-row{grid-template-columns:1fr 70px 60px 60px 28px}}
 .vol-set-header{display:grid;grid-template-columns:1fr 80px 70px 70px 32px;gap:8px;margin-bottom:6px}
 @media(max-width:500px){.vol-set-header{grid-template-columns:1fr 70px 60px 60px 28px}}
-.vol-col-label{font-size:10px;color:#000000;font-family:'Noto Sans TC',sans-serif;letter-spacing:.3px;padding-bottom:2px}
-.vol-remove-btn{width:28px;height:36px;border:1px solid #e0e0da;border-radius:6px;background:#fff;color:#000000;font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
-.vol-remove-btn:hover{border-color:#1c1c1a;color:#1c1c1a}
-.vol-add-btn{font-size:12px;color:#000000;background:none;border:1px dashed #e0e0da;border-radius:8px;padding:8px 14px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;width:100%;margin-top:4px;transition:all .15s}
-.vol-add-btn:hover{border-color:#aaa;color:#555}
-.vol-summary{background:#f5f5f2;border-radius:10px;padding:18px;margin-top:14px;display:none}
+.vol-col-label{font-size:10px;color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;letter-spacing:.3px;padding-bottom:2px}
+.vol-remove-btn{width:28px;height:36px;border:1px solid var(--border);border-radius:6px;background:var(--surface);color:var(--ink-3);font-size:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .15s;flex-shrink:0}
+.vol-remove-btn:hover{border-color:var(--ink);color:var(--ink)}
+.vol-add-btn{font-size:12px;color:var(--ink-3);background:none;border:1px dashed var(--border);border-radius:8px;padding:8px 14px;cursor:pointer;font-family:'Noto Sans TC',sans-serif;width:100%;margin-top:4px;transition:all .15s}
+.vol-add-btn:hover{border-color:#aaa;color:var(--ink-2)}
+.vol-summary{background:var(--surface-2);border-radius:10px;padding:18px;margin-top:14px;display:none}
 .vol-summary.show{display:block}
 .vol-summary-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
 @media(max-width:480px){.vol-summary-grid{grid-template-columns:repeat(2,1fr)}}
 .vol-stat{text-align:center}
-.vol-stat-num{font-size:22px;font-weight:500;color:#1c1c1a;font-family:'DM Sans',sans-serif}
-.vol-stat-label{font-size:10px;color:#000000;font-family:'Noto Sans TC',sans-serif;margin-top:2px}
+.vol-stat-num{font-size:22px;font-weight:500;color:var(--ink);font-family:'DM Sans',sans-serif}
+.vol-stat-label{font-size:10px;color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;margin-top:2px}
 .vol-muscle-list{display:flex;flex-direction:column;gap:6px}
 .vol-muscle-row{display:flex;align-items:center;gap:10px}
-.vol-muscle-name{font-size:12px;color:#000000;font-family:'Noto Sans TC',sans-serif;min-width:72px}
-.vol-muscle-bar-track{flex:1;height:5px;background:#e0e0da;border-radius:3px;overflow:hidden}
-.vol-muscle-bar-fill{height:100%;border-radius:3px;background:#1c1c1a;transition:width .4s ease}
-.vol-muscle-sets{font-size:11px;color:#000000;font-family:'DM Sans',sans-serif;min-width:36px;text-align:right}
-.vol-tonnage{font-size:11px;color:#000000;font-family:'Noto Sans TC',sans-serif;margin-top:10px;text-align:center}
+.vol-muscle-name{font-size:12px;color:var(--ink);font-family:'Noto Sans TC',sans-serif;min-width:72px}
+.vol-muscle-bar-track{flex:1;height:5px;background:var(--border);border-radius:3px;overflow:hidden}
+.vol-muscle-bar-fill{height:100%;border-radius:3px;background:var(--ink);transition:width .4s ease}
+.vol-muscle-sets{font-size:11px;color:var(--ink-3);font-family:'DM Sans',sans-serif;min-width:36px;text-align:right}
+.vol-tonnage{font-size:11px;color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;margin-top:10px;text-align:center}
 
 /* ===== PROTEIN CALCULATOR ===== */
-.calc-card{background:#fff;border:1px solid #e8e8e4;border-radius:12px;padding:24px;margin-bottom:14px}
+.calc-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:24px;margin-bottom:14px}
 .calc-row{display:flex;gap:12px;align-items:flex-end;flex-wrap:wrap;margin-bottom:16px}
 .calc-field{display:flex;flex-direction:column;gap:5px;flex:1;min-width:100px}
-.calc-label{font-size:11px;color:#000000;font-family:'Noto Sans TC',sans-serif;letter-spacing:.5px}
-.calc-input{padding:9px 12px;border:1px solid #e0e0da;border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;color:#1c1c1a;outline:none;transition:border-color .15s;background:#fafaf8}
-.calc-input:focus{border-color:#aaa;background:#fff}
-.calc-select{padding:9px 12px;border:1px solid #e0e0da;border-radius:8px;font-size:13px;font-family:'Noto Sans TC',sans-serif;color:#1c1c1a;outline:none;background:#fafaf8;cursor:pointer}
-.calc-btn{padding:10px 20px;background:var(--ink);color:#fff;border:none;border-radius:8px;font-size:13px;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:background .2s,transform .2s cubic-bezier(0.34,1.56,0.64,1),box-shadow .2s;white-space:nowrap}
-.calc-btn:hover{background:#333;transform:translateY(-1px);box-shadow:0 4px 16px rgba(28,28,26,.18)}
+.calc-label{font-size:11px;color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;letter-spacing:.5px}
+.calc-input{padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:14px;font-family:'DM Sans',sans-serif;color:var(--ink);outline:none;transition:border-color .15s;background:var(--surface-2)}
+.calc-input:focus{border-color:#aaa;background:var(--surface)}
+.calc-select{padding:9px 12px;border:1px solid var(--border);border-radius:8px;font-size:13px;font-family:'Noto Sans TC',sans-serif;color:var(--ink);outline:none;background:var(--surface-2);cursor:pointer}
+.calc-btn{padding:10px 20px;background:var(--ink);color:var(--bg);border:none;border-radius:8px;font-size:13px;font-family:'Noto Sans TC',sans-serif;cursor:pointer;transition:background .2s,transform .2s cubic-bezier(0.34,1.56,0.64,1),box-shadow .2s;white-space:nowrap}
+.calc-btn:hover{background:var(--ink-2);transform:translateY(-1px);box-shadow:0 4px 16px rgba(28,28,26,.18)}
 .calc-btn:active{transform:translateY(0);box-shadow:none}
-.calc-result{background:#f5f5f2;border-radius:10px;padding:20px;margin-top:4px;display:none}
+.calc-result{background:var(--surface-2);border-radius:10px;padding:20px;margin-top:4px;display:none}
 .calc-result.show{display:block}
-.calc-result-title{font-size:11px;color:#000000;font-family:'Noto Sans TC',sans-serif;letter-spacing:.5px;margin-bottom:14px}
+.calc-result-title{font-size:11px;color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;letter-spacing:.5px;margin-bottom:14px}
 .calc-bars{display:flex;flex-direction:column;gap:10px}
 .calc-bar-row{display:flex;align-items:center;gap:10px}
-.calc-bar-label{font-size:12px;color:#000000;font-family:'Noto Sans TC',sans-serif;min-width:80px}
-.calc-bar-track{flex:1;height:6px;background:#e0e0da;border-radius:3px;overflow:hidden}
-.calc-bar-fill{height:100%;border-radius:3px;background:#1c1c1a;transition:width .4s ease}
-.calc-bar-val{font-size:12px;font-weight:500;color:#1c1c1a;min-width:60px;text-align:right;font-family:'DM Sans',sans-serif}
-.calc-note{font-size:12px;color:#000000;font-family:'Noto Sans TC',sans-serif;margin-top:14px;line-height:1.7}
+.calc-bar-label{font-size:12px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;min-width:80px}
+.calc-bar-track{flex:1;height:6px;background:var(--border);border-radius:3px;overflow:hidden}
+.calc-bar-fill{height:100%;border-radius:3px;background:var(--ink);transition:width .4s ease}
+.calc-bar-val{font-size:12px;font-weight:500;color:var(--ink);min-width:60px;text-align:right;font-family:'DM Sans',sans-serif}
+.calc-note{font-size:12px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;margin-top:14px;line-height:1.7}
 
 /* ===== PITFALLS PAGE ===== */
 .pitfall-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:22px;margin-bottom:14px;border-left:3px solid var(--ink);transition:transform .3s cubic-bezier(0.16,1,0.3,1),box-shadow .3s cubic-bezier(0.16,1,0.3,1)}
 .pitfall-card:hover{transform:translateY(-3px) translateX(3px);box-shadow:0 10px 32px rgba(28,28,26,.08)}
-.pitfall-num{font-size:11px;color:#000000;font-family:'DM Sans',sans-serif;margin-bottom:6px;letter-spacing:.5px}
-.pitfall-title{font-size:15px;font-weight:500;color:#1c1c1a;font-family:'Noto Sans TC',sans-serif;margin-bottom:8px;line-height:1.4}
-.pitfall-body{font-size:13px;color:#000000;font-family:'Noto Sans TC',sans-serif;font-weight:300;line-height:1.85}
-.pitfall-body strong{font-weight:500;color:#1c1c1a}
-.pitfall-lesson{background:#fafaf8;border-radius:8px;padding:10px 14px;margin-top:12px;font-size:12px;color:#000000;font-family:'Noto Sans TC',sans-serif;line-height:1.7}
-.pitfall-lesson::before{content:'💡 學到的事：';font-weight:500;color:#000000;display:block;margin-bottom:3px}
-.pitfall-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:12px;background:#f5f5f2;color:#000000;font-family:'Noto Sans TC',sans-serif;border:1px solid #e8e8e4;margin-bottom:10px}
+.pitfall-num{font-size:11px;color:var(--ink-4);font-family:'DM Sans',sans-serif;margin-bottom:6px;letter-spacing:.5px}
+.pitfall-title{font-size:15px;font-weight:500;color:var(--ink);font-family:'Noto Sans TC',sans-serif;margin-bottom:8px;line-height:1.4}
+.pitfall-body{font-size:13px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;font-weight:300;line-height:1.85}
+.pitfall-body strong{font-weight:500;color:var(--ink)}
+.pitfall-lesson{background:var(--surface-2);border-radius:8px;padding:10px 14px;margin-top:12px;font-size:12px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;line-height:1.7}
+.pitfall-lesson::before{content:'💡 學到的事：';font-weight:500;color:var(--ink);display:block;margin-bottom:3px}
+.pitfall-tag{display:inline-block;font-size:11px;padding:3px 9px;border-radius:12px;background:var(--surface-2);color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;border:1px solid var(--border);margin-bottom:10px}
 
 /* ===== RESOURCES PAGE ===== */
-.resource-group-title{font-size:11px;letter-spacing:1.5px;color:#000000;text-transform:uppercase;margin:28px 0 14px;display:flex;align-items:center;gap:10px}
-.resource-group-title::after{content:'';flex:1;height:1px;background:#e8e8e4}
+.resource-group-title{font-size:11px;letter-spacing:1.5px;color:var(--ink-4);text-transform:uppercase;margin:28px 0 14px;display:flex;align-items:center;gap:10px}
+.resource-group-title::after{content:'';flex:1;height:1px;background:var(--border)}
 .resource-group-title:first-child{margin-top:0}
 .resource-item{display:flex;gap:14px;align-items:flex-start;padding:14px 8px;border-bottom:1px solid var(--border-light);border-radius:10px;margin:0 -8px;transition:background .2s,transform .2s}
 .resource-item:hover{background:rgba(28,28,26,.03);transform:translateX(4px)}
 .resource-item:last-child{border:none}
 .resource-icon{font-size:22px;min-width:36px;text-align:center;margin-top:1px}
 .resource-info{flex:1}
-.resource-name{font-size:15px;font-weight:500;color:#1c1c1a;font-family:'Noto Sans TC',sans-serif;margin-bottom:3px}
-.resource-name a{color:#1c1c1a;text-decoration:underline;text-underline-offset:3px;text-decoration-color:#ddd}
-.resource-name a:hover{text-decoration-color:#888}
-.resource-desc{font-size:13px;color:#000000;font-family:'Noto Sans TC',sans-serif;line-height:1.65}
+.resource-name{font-size:15px;font-weight:500;color:var(--ink);font-family:'Noto Sans TC',sans-serif;margin-bottom:3px}
+.resource-name a{color:var(--ink);text-decoration:underline;text-underline-offset:3px;text-decoration-color:var(--border)}
+.resource-name a:hover{text-decoration-color:var(--ink-3)}
+.resource-desc{font-size:13px;color:var(--ink-2);font-family:'Noto Sans TC',sans-serif;line-height:1.65}
 .resource-badge{display:inline-block;font-size:10px;padding:2px 7px;border-radius:10px;background:#f0f6ff;color:#1a5cbf;border:1px solid #c8deff;font-family:'DM Sans',sans-serif;margin-left:6px;vertical-align:middle}
+body.dark-mode .resource-badge{background:#0a1a2a;color:#6ba3e0;border-color:#1a3a5a}
 
 /* ===== VIDEO SECTION ===== */
 .video-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
@@ -353,24 +491,27 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
 .video-source-badge{position:absolute;top:8px;left:8px;background:rgba(0,180,212,.9);color:#fff;font-size:10px;padding:2px 7px;border-radius:8px;font-family:'DM Sans',sans-serif;font-weight:500;letter-spacing:.3px}
 .video-source-badge.yt{background:rgba(200,30,30,.9)}
 .video-info{padding:12px 14px 14px}
-.video-tag{font-size:10px;color:#000000;font-family:'Noto Sans TC',sans-serif;letter-spacing:.5px;margin-bottom:4px}
-.video-title{font-size:13px;font-weight:500;color:#1c1c1a;font-family:'Noto Sans TC',sans-serif;line-height:1.45;margin-bottom:4px}
-.video-author{font-size:11px;color:#000000;font-family:'Noto Sans TC',sans-serif}
+.video-tag{font-size:10px;color:var(--ink-3);font-family:'Noto Sans TC',sans-serif;letter-spacing:.5px;margin-bottom:4px}
+.video-title{font-size:13px;font-weight:500;color:var(--ink);font-family:'Noto Sans TC',sans-serif;line-height:1.45;margin-bottom:4px}
+.video-author{font-size:11px;color:var(--ink-4);font-family:'Noto Sans TC',sans-serif}
 /* Article prose enhancements */
-.article-prose{font-size:15px;line-height:1.9;color:#000000;font-family:'Noto Sans TC',sans-serif;font-weight:300;margin-bottom:14px}
-.article-prose strong{font-weight:500;color:#1c1c1a}
-.article-prose a{color:#000000;text-decoration:underline;text-underline-offset:2px}
-.article-prose a:hover{color:#1c1c1a}
+.article-prose{font-size:15px;line-height:1.9;color:var(--ink);font-family:'Noto Sans TC',sans-serif;font-weight:300;margin-bottom:14px}
+.article-prose strong{font-weight:500;color:var(--ink)}
+.article-prose a{color:var(--ink);text-decoration:underline;text-underline-offset:2px}
+.article-prose a:hover{color:var(--ink-2)}
+/* Ensure dark mode works for muscle pills and pull quotes */
+.muscle-pill{color:var(--ink)!important}
+.pull-quote{color:var(--ink)!important}
 
 /* Science badge */
-.sci-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:#000000;background:#f5f5f2;border-radius:4px;padding:3px 8px;margin-bottom:12px;font-family:'DM Sans',sans-serif;letter-spacing:.3px}
+.sci-badge{display:inline-flex;align-items:center;gap:5px;font-size:10px;color:var(--ink-3);background:var(--surface-2);border-radius:4px;padding:3px 8px;margin-bottom:12px;font-family:'DM Sans',sans-serif;letter-spacing:.3px}
 
 /* Muscle list */
 .muscle-pills{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0}
-.muscle-pill{font-size:11px;padding:3px 9px;border-radius:12px;background:#f5f5f2;color:#000000;font-family:'Noto Sans TC',sans-serif;border:1px solid #e8e8e4}
+.muscle-pill{font-size:11px;padding:3px 9px;border-radius:12px;background:var(--surface-2);color:var(--ink);font-family:'Noto Sans TC',sans-serif;border:1px solid var(--border)}
 
 /* Highlight quote */
-.pull-quote{border-left:3px solid #1c1c1a;padding:12px 16px;margin:14px 0;font-size:13px;font-style:italic;color:#000000;font-family:'Instrument Serif',serif;line-height:1.7;background:#fafaf8}
+.pull-quote{border-left:3px solid var(--ink);padding:12px 16px;margin:14px 0;font-size:13px;font-style:italic;color:var(--ink);font-family:'Instrument Serif',serif;line-height:1.7;background:var(--surface-3)}
 /* ── TOOLS PAGE ── */
 .tools-tab {
   font-family: 'Noto Sans TC', sans-serif;
@@ -379,15 +520,34 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
   border: none;
   border-bottom: 2px solid transparent;
   padding: 12px 18px 10px;
-  color: #888;
+  color: var(--ink-4);
   cursor: pointer;
   transition: color .15s, border-color .15s;
   margin-bottom: -2px;
 }
-.tools-tab:hover { color: #333; }
-.tools-tab.active { color: #1c1c1a; border-bottom-color: #1c1c1a; font-weight: 500; }
+.tools-tab:hover { color: var(--ink-3); }
+.tools-tab.active { color: var(--ink); border-bottom-color: var(--ink); font-weight: 500; }
 .tools-panel { display: none; }
 .tools-panel.active { display: block; }
+/* ── Tools sticky subnav — must use CSS vars so dark mode works ── */
+.tools-subnav {
+  border-bottom: 2px solid var(--border);
+  display: flex; gap: 0;
+  padding: 0 24px;
+  position: sticky; top: 56px;
+  background: rgba(250,250,248,.95);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 9;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  transition: background .3s;
+}
+body.dark-mode .tools-subnav {
+  background: rgba(15,15,14,.95);
+  border-bottom-color: var(--border);
+}
 .calc-range {
   width: 100%;
   accent-color: #1c1c1a;
@@ -398,15 +558,15 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
 .tempo-phase {
   width: 72px;
   text-align: center;
-  border: 1px solid #e0e0da;
+  border: 1px solid var(--border);
   border-radius: 8px;
   padding: 12px 4px;
   transition: border-color .2s;
 }
-.tempo-phase.active-tp { border-color: #1c1c1a; }
-.tp-num { font-size: 28px; font-weight: 700; font-family: 'DM Mono', monospace; color: #1c1c1a; line-height: 1; }
-.tp-label { font-size: 11px; color: #666; margin-top: 4px; }
-.tp-sub { font-size: 12px; color: #444; margin-top: 2px; font-weight: 500; }
+.tempo-phase.active-tp { border-color: var(--ink); }
+.tp-num { font-size: 28px; font-weight: 700; font-family: 'DM Mono', monospace; color: var(--ink); line-height: 1; }
+.tp-label { font-size: 11px; color: var(--ink-4); margin-top: 4px; }
+.tp-sub { font-size: 12px; color: var(--ink-3); margin-top: 2px; font-weight: 500; }
 </style>
 
 <h2 class="sr-only" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)">個人健身部落格，包含動作教學、飲食知識、課表安排與關於本站</h2>
@@ -421,9 +581,12 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
       <li><a href="#" data-page="tools" onclick="navGo('tools');return false;">訓練工具</a></li>
       <li><a href="#" data-page="about" onclick="navGo('about');return false;">關於</a></li>
     </ul>
-    <button class="nav-hamburger" id="nav-hamburger" onclick="toggleDrawer()" aria-label="選單">
-      <span></span><span></span><span></span>
-    </button>
+    <div style="display:flex;align-items:center;gap:8px">
+      <button class="dark-toggle" id="dark-toggle-btn" onclick="toggleDarkMode()" aria-label="切換深色模式" title="切換深色模式">🌙</button>
+      <button class="nav-hamburger" id="nav-hamburger" onclick="toggleDrawer()" aria-label="選單">
+        <span></span><span></span><span></span>
+      </button>
+    </div>
   </div>
 </nav>
 <div class="nav-drawer" id="nav-drawer" onclick="closeDrawerOutside(event)">
@@ -1743,13 +1906,18 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
 </section>
 
 <!-- Tools Tab Bar -->
-<div style="border-bottom:2px solid #e8e8e4;display:flex;gap:0;padding:0 24px;position:sticky;top:56px;background:rgba(250,250,248,.95);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);z-index:9;overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none">
+<div class="tools-subnav">
   <button class="tools-tab active" onclick="switchToolTab('sfr',this)">SFR 評估</button>
   <button class="tools-tab" onclick="switchToolTab('recovery',this)">肌肉恢復</button>
   <button class="tools-tab" onclick="switchToolTab('tempo',this)">節奏 &amp; TUT</button>
   <button class="tools-tab" onclick="switchToolTab('protein',this)">蛋白質</button>
   <button class="tools-tab" onclick="switchToolTab('rm',this)">1RM</button>
   <button class="tools-tab" onclick="switchToolTab('volume',this)">訓練量</button>
+  <button class="tools-tab" onclick="switchToolTab('diary',this)">訓練日記</button>
+  <button class="tools-tab" onclick="switchToolTab('progress',this)">進度圖表</button>
+  <button class="tools-tab" onclick="switchToolTab('schedule',this)">週課表生成器</button>
+  <button class="tools-tab" onclick="switchToolTab('calorie',this)">熱量計算器</button>
+
 </div>
 
 <!-- SFR Panel -->
@@ -2028,6 +2196,208 @@ footer{max-width:720px;margin:0 auto;padding:28px 24px 48px;display:flex;justify
   </div>
 </section>
 </div>
+
+
+<!-- ===== DIARY PANEL ===== -->
+<div id="tools-diary" class="tools-panel">
+<section class="section">
+  <div class="section-label">訓練日記</div>
+  <div class="kc-title" style="margin-bottom:4px">記錄每次訓練感受、重量和心得</div>
+  <p style="font-size:12px;color:#888;margin-bottom:20px">資料存在瀏覽器本地，清除快取後會消失。</p>
+
+  <div class="journal-form-area">
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px">
+      <div class="calc-field">
+        <label class="calc-label">日期</label>
+        <input type="date" class="calc-input" id="diary-date" style="width:100%">
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">標題</label>
+        <input type="text" class="calc-input" id="diary-title" placeholder="例：推日 · 臥推 PR" style="width:100%">
+      </div>
+    </div>
+    <div class="calc-field" style="margin-bottom:10px">
+      <label class="calc-label">訓練內容 / 心得</label>
+      <textarea class="journal-textarea" id="diary-body" placeholder="記錄今天的訓練動作、重量、感受…"></textarea>
+    </div>
+    <div class="journal-tag-row" id="diary-tag-row">
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'推')">推</span>
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'拉')">拉</span>
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'腿')">腿</span>
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'全身')">全身</span>
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'有氧')">有氧</span>
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'PR')">PR</span>
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'恢復差')">恢復差</span>
+      <span class="journal-tag-btn" onclick="toggleDiaryTag(this,'狀態好')">狀態好</span>
+    </div>
+    <button class="calc-btn" onclick="saveDiaryEntry()" style="margin-top:12px;width:100%">儲存紀錄</button>
+  </div>
+
+  <div id="diary-list"></div>
+</section>
+</div>
+
+<!-- ===== PROGRESS PANEL ===== -->
+<div id="tools-progress" class="tools-panel">
+<section class="section">
+  <div class="section-label">進度圖表</div>
+  <div class="kc-title" style="margin-bottom:4px">記錄並追蹤各動作的最大重量進展</div>
+  <p style="font-size:12px;color:#888;margin-bottom:20px">資料存在瀏覽器本地，清除快取後會消失。</p>
+
+  <div class="calc-card" style="margin-bottom:16px">
+    <div style="display:grid;grid-template-columns:1fr 1fr 1fr auto;gap:10px;align-items:end">
+      <div class="calc-field">
+        <label class="calc-label">動作</label>
+        <select class="calc-select" id="prog-ex" style="width:100%">
+          <option>深蹲</option><option>硬舉</option><option>臥推</option><option>肩推</option>
+          <option>引體向上</option><option>划船</option><option>羅馬尼亞硬舉</option><option>腿推</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">重量 (kg)</label>
+        <input type="number" class="calc-input" id="prog-weight" placeholder="80" min="1" max="500" style="width:100%">
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">次數</label>
+        <input type="number" class="calc-input" id="prog-reps" placeholder="5" min="1" max="50" style="width:100%">
+      </div>
+      <button class="calc-btn" onclick="addProgressRecord()" style="height:38px;white-space:nowrap">新增</button>
+    </div>
+    <div class="inline-error" id="prog-error"></div>
+  </div>
+
+  <div class="progress-chart-wrap">
+    <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:14px">
+      <div class="progress-chart-title" style="margin-bottom:0">進度折線圖</div>
+      <select class="calc-select" id="prog-filter" onchange="renderProgressChart()" style="font-size:12px;padding:6px 10px">
+        <option>深蹲</option><option>硬舉</option><option>臥推</option><option>肩推</option>
+        <option>引體向上</option><option>划船</option><option>羅馬尼亞硬舉</option><option>腿推</option>
+      </select>
+    </div>
+    <div class="progress-canvas-wrap">
+      <canvas class="progress-canvas" id="progressCanvas"></canvas>
+    </div>
+    <div class="progress-stat-grid" id="progress-stats">
+      <div class="progress-stat"><div class="progress-stat-num" id="stat-best">—</div><div class="progress-stat-label">最大重量 (kg)</div></div>
+      <div class="progress-stat"><div class="progress-stat-num" id="stat-sessions">—</div><div class="progress-stat-label">紀錄筆數</div></div>
+      <div class="progress-stat"><div class="progress-stat-num" id="stat-gain">—</div><div class="progress-stat-label">進步幅度 (kg)</div></div>
+    </div>
+  </div>
+
+  <div id="progress-record-list" style="margin-top:14px"></div>
+</section>
+</div>
+
+<!-- ===== SCHEDULE PANEL ===== -->
+<div id="tools-schedule" class="tools-panel">
+<section class="section">
+  <div class="section-label">週課表生成器</div>
+  <div class="kc-title" style="margin-bottom:4px">根據你的目標與時間，自動生成個人化週課表</div>
+  <p style="font-size:12px;color:#888;margin-bottom:20px">選擇每週訓練天數、目標與程度，即可生成課表建議。</p>
+
+  <div class="calc-card" style="margin-bottom:16px">
+    <label class="calc-label" style="display:block;margin-bottom:8px">每週訓練天數</label>
+    <div class="sched-option-grid" id="sched-days-grid">
+      <div class="sched-option" onclick="selectSchedDays(this,2)"><div class="sched-option-num">2</div><div class="sched-option-label">天/週</div></div>
+      <div class="sched-option" onclick="selectSchedDays(this,3)"><div class="sched-option-num">3</div><div class="sched-option-label">天/週</div></div>
+      <div class="sched-option selected" onclick="selectSchedDays(this,4)"><div class="sched-option-num">4</div><div class="sched-option-label">天/週</div></div>
+      <div class="sched-option" onclick="selectSchedDays(this,5)"><div class="sched-option-num">5</div><div class="sched-option-label">天/週</div></div>
+      <div class="sched-option" onclick="selectSchedDays(this,6)"><div class="sched-option-num">6</div><div class="sched-option-label">天/週</div></div>
+    </div>
+
+    <label class="calc-label" style="display:block;margin:16px 0 8px">訓練目標</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" id="sched-goal-row">
+      <div class="sched-option selected" style="flex:1;min-width:90px" onclick="selectSchedGoal(this,'hypertrophy')"><div class="sched-option-num" style="font-size:16px">💪</div><div class="sched-option-label">肌肥大</div></div>
+      <div class="sched-option" style="flex:1;min-width:90px" onclick="selectSchedGoal(this,'strength')"><div class="sched-option-num" style="font-size:16px">🏋️</div><div class="sched-option-label">增力</div></div>
+      <div class="sched-option" style="flex:1;min-width:90px" onclick="selectSchedGoal(this,'fat')"><div class="sched-option-num" style="font-size:16px">🔥</div><div class="sched-option-label">減脂</div></div>
+      <div class="sched-option" style="flex:1;min-width:90px" onclick="selectSchedGoal(this,'perf')"><div class="sched-option-num" style="font-size:16px">⚡</div><div class="sched-option-label">爆發力</div></div>
+    </div>
+
+    <label class="calc-label" style="display:block;margin:16px 0 8px">訓練程度</label>
+    <div style="display:flex;gap:8px;flex-wrap:wrap" id="sched-level-row">
+      <div class="sched-option selected" style="flex:1;min-width:90px" onclick="selectSchedLevel(this,'beginner')"><div class="sched-option-label" style="font-size:13px;opacity:1">初學者</div><div class="sched-option-label">訓練 &lt;1 年</div></div>
+      <div class="sched-option" style="flex:1;min-width:90px" onclick="selectSchedLevel(this,'intermediate')"><div class="sched-option-label" style="font-size:13px;opacity:1">中級</div><div class="sched-option-label">1–3 年</div></div>
+      <div class="sched-option" style="flex:1;min-width:90px" onclick="selectSchedLevel(this,'advanced')"><div class="sched-option-label" style="font-size:13px;opacity:1">進階</div><div class="sched-option-label">3 年以上</div></div>
+    </div>
+
+    <button class="calc-btn" onclick="generateSchedule()" style="margin-top:16px;width:100%">生成週課表</button>
+    <div class="inline-error" id="sched-error"></div>
+  </div>
+
+  <div id="sched-result" style="display:none">
+    <div class="section-label" style="margin-top:0">建議週課表</div>
+    <div id="sched-result-days"></div>
+    <div class="info-box" id="sched-notes" style="margin-top:12px"></div>
+  </div>
+</section>
+</div>
+
+<!-- ===== CALORIE PANEL ===== -->
+<div id="tools-calorie" class="tools-panel">
+<section class="section">
+  <div class="section-label">熱量計算器</div>
+  <div class="kc-title" style="margin-bottom:4px">計算你的每日總消耗熱量（TDEE）與三大營養素建議</div>
+  <p style="font-size:12px;color:#888;margin-bottom:20px">使用 Mifflin-St Jeor 公式計算 BMR，再依活動量倍率估算 TDEE。</p>
+
+  <div class="calc-card">
+    <div class="calc-row">
+      <div class="calc-field">
+        <label class="calc-label">性別</label>
+        <select class="calc-select" id="tdee-sex">
+          <option value="male">男性</option>
+          <option value="female">女性</option>
+        </select>
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">年齡</label>
+        <input type="number" class="calc-input" id="tdee-age" placeholder="25" min="15" max="80">
+      </div>
+    </div>
+    <div class="calc-row">
+      <div class="calc-field">
+        <label class="calc-label">身高 (cm)</label>
+        <input type="number" class="calc-input" id="tdee-height" placeholder="175" min="100" max="250">
+      </div>
+      <div class="calc-field">
+        <label class="calc-label">體重 (kg)</label>
+        <input type="number" class="calc-input" id="tdee-weight" placeholder="70" min="30" max="300">
+      </div>
+    </div>
+    <div class="calc-field" style="margin-bottom:16px">
+      <label class="calc-label">活動量</label>
+      <select class="calc-select" id="tdee-activity" style="width:100%">
+        <option value="1.2">久坐（辦公室工作，幾乎不運動）</option>
+        <option value="1.375">輕度活躍（每週 1–3 次輕度運動）</option>
+        <option value="1.55" selected>中度活躍（每週 3–5 次訓練）</option>
+        <option value="1.725">高度活躍（每週 6–7 次高強度訓練）</option>
+        <option value="1.9">極度活躍（體力勞動或每日雙練）</option>
+      </select>
+    </div>
+    <button class="calc-btn" onclick="calcTDEE()" style="width:100%">計算 TDEE</button>
+    <div class="inline-error" id="tdee-error"></div>
+
+    <div class="calc-result" id="tdee-result" style="margin-top:16px">
+      <div class="calc-result-title">熱量建議</div>
+      <div class="tdee-result-grid">
+        <div class="tdee-cell"><div class="tdee-cell-num" id="tdee-bmr">—</div><div class="tdee-cell-label">基礎代謝率 BMR</div></div>
+        <div class="tdee-cell highlight"><div class="tdee-cell-num" id="tdee-maint">—</div><div class="tdee-cell-label">維持熱量 TDEE</div></div>
+        <div class="tdee-cell"><div class="tdee-cell-num" id="tdee-cut">—</div><div class="tdee-cell-label">減脂（-300 kcal）</div></div>
+        <div class="tdee-cell"><div class="tdee-cell-num" id="tdee-bulk">—</div><div class="tdee-cell-label">增肌（+250 kcal）</div></div>
+      </div>
+      <div style="margin-top:14px">
+        <div class="calc-result-title">蛋白質目標（維持體重）</div>
+        <div class="tdee-macro-row"><div class="tdee-macro-color" style="background:#5ab870"></div><div class="tdee-macro-label">蛋白質（2.0g/kg）</div><div class="tdee-macro-val" id="macro-prot">— g</div></div>
+        <div class="tdee-macro-row"><div class="tdee-macro-color" style="background:#e0a030"></div><div class="tdee-macro-label">碳水化合物（剩餘 45%）</div><div class="tdee-macro-val" id="macro-carb">— g</div></div>
+        <div class="tdee-macro-row"><div class="tdee-macro-color" style="background:#e05c4a"></div><div class="tdee-macro-label">脂肪（剩餘 25%）</div><div class="tdee-macro-val" id="macro-fat">— g</div></div>
+      </div>
+    </div>
+  </div>
+  <div class="kc-source" style="margin-top:12px;font-size:11px;color:#666">
+    公式：Mifflin MD, St Jeor ST et al. <em>J Am Diet Assoc</em>. 1990.
+  </div>
+</section>
+</div>
+
 
 </div><!-- /page-tools -->
 
@@ -6032,6 +6402,41 @@ document.addEventListener('DOMContentLoaded', function() {
   setTimeout(checkReveal, 120);
 });
 
+// ===== INLINE ERROR HELPERS =====
+function showInlineError(id, msg) {
+  var el = document.getElementById(id);
+  if (el) { el.textContent = msg; el.classList.add('show'); }
+}
+function hideInlineError(id) {
+  var el = document.getElementById(id);
+  if (el) el.classList.remove('show');
+}
+
+// ===== DARK MODE TOGGLE =====
+function toggleDarkMode() {
+  var isDark = document.body.classList.toggle('dark-mode');
+  var btn = document.getElementById('dark-toggle-btn');
+  if (btn) {
+    btn.textContent = isDark ? '☀️' : '🌙';
+    btn.setAttribute('aria-label', isDark ? '切換淺色模式' : '切換深色模式');
+    btn.setAttribute('title', isDark ? '切換淺色模式' : '切換深色模式');
+  }
+  try { localStorage.setItem('darkMode', isDark ? '1' : '0'); } catch(e) {}
+}
+// Restore dark mode preference on load
+(function() {
+  try {
+    if (localStorage.getItem('darkMode') === '1') {
+      document.body.classList.add('dark-mode');
+      // update button after DOM is ready
+      document.addEventListener('DOMContentLoaded', function() {
+        var btn = document.getElementById('dark-toggle-btn');
+        if (btn) { btn.textContent = '☀️'; btn.setAttribute('aria-label', '切換淺色模式'); btn.setAttribute('title', '切換淺色模式'); }
+      });
+    }
+  } catch(e) {}
+})();
+
 // ===== ARTICLE SEARCH & FILTER =====
 var activeFilter = '全部';
 function setFilter(el, tag) {
@@ -6047,8 +6452,9 @@ function filterPosts() {
   items.forEach(function(item) {
     var tag = item.getAttribute('data-tag') || '';
     var title = item.querySelector('.post-title') ? item.querySelector('.post-title').textContent : '';
+    var excerpt = item.getAttribute('data-excerpt') || '';
     var tagMatch = activeFilter === '全部' || tag === activeFilter;
-    var qMatch = !q || title.toLowerCase().indexOf(q) !== -1;
+    var qMatch = !q || title.toLowerCase().indexOf(q) !== -1 || excerpt.toLowerCase().indexOf(q) !== -1;
     if (tagMatch && qMatch) { item.classList.remove('hidden'); any = true; }
     else item.classList.add('hidden');
   });
@@ -6252,11 +6658,11 @@ document.addEventListener('DOMContentLoaded', function() {
 
 // ===== PROTEIN CALCULATOR =====
 var goals = {
-  sedentary: { min: 0.8, max: 1.2, note: '一般人（無運動）的基本需求。如果你開始運動，需要往上調整。' },
-  maintain:  { min: 1.2, max: 1.6, note: '有規律訓練、以維持肌肉為目標的建議範圍。' },
-  bulk:      { min: 1.6, max: 2.0, note: '積極增肌期間，搭配足夠的訓練量和熱量盈餘效果最好。' },
-  cut:       { min: 1.6, max: 2.4, note: '減脂期蛋白質需求更高，目的是防止掉肌肉，速度越快攝取量應越高。' },
-  senior:    { min: 1.2, max: 1.6, note: '70 歲以上長者因肌肉合成阻抗增加，需要比一般人更多蛋白質，建議分散在 3–4 餐補充。' }
+  sedentary: { min: 0.8, max: 1.2, note: '一般人（無運動）的基本需求（WHO/DRI 建議值）。如果你開始運動，需要往上調整。' },
+  maintain:  { min: 1.2, max: 1.6, note: '有規律訓練、以維持肌肉為目標的建議範圍（ISSN Position Stand 2017；Jäger et al.）。' },
+  bulk:      { min: 1.6, max: 2.2, note: '積極增肌期間，平台點約 1.62 g/kg，搭配足夠的訓練量和熱量盈餘效果最好（Morton et al. 2018 薈萃分析）。' },
+  cut:       { min: 2.3, max: 3.1, note: '減脂期蛋白質需求顯著更高，用以防止肌肉流失。赤字越大、訓練量越高，攝取量應越高（ISSN Position Stand 2017；Helms et al. 2014）。' },
+  senior:    { min: 1.2, max: 2.0, note: '70 歲以上長者因肌肉合成阻抗（Anabolic Resistance）增加，建議 1.2–2.0 g/kg，且需分散在 3–4 餐補充，每餐至少 30–40 g（ESPEN 2013；Bauer et al. 2013）。' }
 };
 function calcProtein() {
   var w = parseFloat(document.getElementById('calcWeight').value);
@@ -6684,6 +7090,767 @@ function updateTempo() {
   }
   document.getElementById('tut-zone').textContent = zone;
   document.getElementById('tempo-notes').textContent = notes;
+}
+
+// ===== PROGRESS CHART =====
+var progressRecords = JSON.parse(localStorage.getItem('progressRecords') || '[]');
+
+function saveProgressRecords() {
+  try { localStorage.setItem('progressRecords', JSON.stringify(progressRecords)); } catch(e){}
+}
+
+function addProgressRecord() {
+  var ex     = document.getElementById('prog-ex').value;
+  var weight = parseFloat(document.getElementById('prog-weight').value);
+  var reps   = parseInt(document.getElementById('prog-reps').value);
+  if (!weight || !reps || weight <= 0 || reps <= 0) {
+    showInlineError('prog-error', '請填入重量和次數'); return;
+  }
+  hideInlineError('prog-error');
+  var today = new Date();
+  var dateStr = today.getFullYear() + '/' + String(today.getMonth()+1).padStart(2,'0') + '/' + String(today.getDate()).padStart(2,'0');
+  progressRecords.push({ ex: ex, weight: weight, reps: reps, date: dateStr, ts: Date.now() });
+  saveProgressRecords();
+  document.getElementById('prog-weight').value = '';
+  document.getElementById('prog-reps').value   = '';
+  // sync filter dropdown to current exercise
+  var filter = document.getElementById('prog-filter');
+  for (var i = 0; i < filter.options.length; i++) {
+    if (filter.options[i].value === ex || filter.options[i].text === ex) { filter.selectedIndex = i; break; }
+  }
+  renderProgressChart();
+  renderProgressList();
+}
+
+function renderProgressChart() {
+  var filter  = document.getElementById('prog-filter').value;
+  var records = progressRecords.filter(function(r){ return r.ex === filter; })
+    .sort(function(a,b){ return a.ts - b.ts; });
+
+  var canvas = document.getElementById('progressCanvas');
+  var ctx    = canvas.getContext('2d');
+  var W = canvas.offsetWidth || 600;
+  var H = 160;
+  canvas.width  = W;
+  canvas.height = H;
+  ctx.clearRect(0, 0, W, H);
+
+  // stats
+  if (records.length === 0) {
+    ctx.fillStyle = '#aaa';
+    ctx.font = '13px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('尚無紀錄，請新增資料', W/2, H/2);
+    document.getElementById('stat-best').textContent     = '—';
+    document.getElementById('stat-sessions').textContent = '—';
+    document.getElementById('stat-gain').textContent     = '—';
+    return;
+  }
+
+  var weights  = records.map(function(r){ return r.weight; });
+  var maxW     = Math.max.apply(null, weights);
+  var minW     = Math.min.apply(null, weights);
+  var gain     = (maxW - weights[0]).toFixed(1);
+  document.getElementById('stat-best').textContent     = maxW;
+  document.getElementById('stat-sessions').textContent = records.length;
+  document.getElementById('stat-gain').textContent     = (gain >= 0 ? '+' : '') + gain;
+
+  if (records.length === 1) {
+    ctx.fillStyle = '#1c1c1a';
+    ctx.font = '13px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.fillText('需要至少 2 筆紀錄才能顯示折線圖', W/2, H/2);
+    return;
+  }
+
+  var pad  = { top: 20, right: 20, bottom: 28, left: 40 };
+  var gW   = W - pad.left - pad.right;
+  var gH   = H - pad.top - pad.bottom;
+  var range = maxW - minW || 10;
+  var yMin  = minW - range * 0.15;
+  var yMax  = maxW + range * 0.15;
+
+  function xPos(i) { return pad.left + (i / (records.length - 1)) * gW; }
+  function yPos(v) { return pad.top + gH - ((v - yMin) / (yMax - yMin)) * gH; }
+
+  // grid lines
+  ctx.strokeStyle = '#e8e8e4';
+  ctx.lineWidth   = 1;
+  for (var gi = 0; gi <= 4; gi++) {
+    var gy = pad.top + (gi / 4) * gH;
+    ctx.beginPath(); ctx.moveTo(pad.left, gy); ctx.lineTo(W - pad.right, gy); ctx.stroke();
+    var label = (yMax - (gi / 4) * (yMax - yMin)).toFixed(0);
+    ctx.fillStyle = '#aaa'; ctx.font = '10px DM Sans,sans-serif'; ctx.textAlign = 'right';
+    ctx.fillText(label, pad.left - 6, gy + 4);
+  }
+
+  // date labels (first & last)
+  ctx.fillStyle = '#aaa'; ctx.font = '10px sans-serif'; ctx.textAlign = 'center';
+  ctx.fillText(records[0].date, xPos(0), H - 4);
+  if (records.length > 1) ctx.fillText(records[records.length-1].date, xPos(records.length-1), H - 4);
+
+  // gradient fill
+  var grad = ctx.createLinearGradient(0, pad.top, 0, pad.top + gH);
+  grad.addColorStop(0, 'rgba(90,184,112,0.25)');
+  grad.addColorStop(1, 'rgba(90,184,112,0)');
+  ctx.beginPath();
+  ctx.moveTo(xPos(0), yPos(records[0].weight));
+  for (var i = 1; i < records.length; i++) ctx.lineTo(xPos(i), yPos(records[i].weight));
+  ctx.lineTo(xPos(records.length-1), pad.top + gH);
+  ctx.lineTo(xPos(0), pad.top + gH);
+  ctx.closePath();
+  ctx.fillStyle = grad;
+  ctx.fill();
+
+  // line
+  ctx.beginPath();
+  ctx.strokeStyle = '#5ab870';
+  ctx.lineWidth   = 2.5;
+  ctx.lineJoin    = 'round';
+  ctx.moveTo(xPos(0), yPos(records[0].weight));
+  for (var j = 1; j < records.length; j++) ctx.lineTo(xPos(j), yPos(records[j].weight));
+  ctx.stroke();
+
+  // dots
+  for (var k = 0; k < records.length; k++) {
+    ctx.beginPath();
+    ctx.arc(xPos(k), yPos(records[k].weight), 4, 0, Math.PI*2);
+    ctx.fillStyle = '#5ab870'; ctx.fill();
+    ctx.strokeStyle = '#fff'; ctx.lineWidth = 1.5; ctx.stroke();
+  }
+}
+
+function renderProgressList() {
+  var filter  = document.getElementById('prog-filter').value;
+  var records = progressRecords.filter(function(r){ return r.ex === filter; })
+    .sort(function(a,b){ return b.ts - a.ts; });
+  var el  = document.getElementById('progress-record-list');
+  if (!el) return;
+  if (records.length === 0) { el.innerHTML = ''; return; }
+  el.innerHTML = records.map(function(r, idx) {
+    var origIdx = progressRecords.indexOf(r);
+    return '<div class="journal-entry" style="display:flex;justify-content:space-between;align-items:center;padding:14px 16px">'
+      + '<div><span style="font-size:12px;color:#888">' + r.date + '</span>'
+      + '<span style="font-size:14px;font-weight:500;color:#1c1c1a;margin-left:12px">' + r.weight + ' kg</span>'
+      + '<span style="font-size:12px;color:#888;margin-left:8px">× ' + r.reps + ' 次</span></div>'
+      + '<button class="journal-delete-btn" onclick="deleteProgressRecord(' + origIdx + ')">✕</button></div>';
+  }).join('');
+}
+
+function deleteProgressRecord(idx) {
+  progressRecords.splice(idx, 1);
+  saveProgressRecords();
+  renderProgressChart();
+  renderProgressList();
+}
+
+// ===== TRAINING DIARY (localStorage) =====
+var diaryEntries = [];
+try { diaryEntries = JSON.parse(localStorage.getItem('diaryEntries') || '[]'); } catch(e) {}
+
+function saveDiaryEntries() {
+  try { localStorage.setItem('diaryEntries', JSON.stringify(diaryEntries)); } catch(e) {}
+}
+
+function toggleDiaryTag(el, tag) {
+  el.classList.toggle('selected');
+}
+
+function saveDiaryEntry() {
+  var date  = document.getElementById('diary-date').value;
+  var title = document.getElementById('diary-title').value.trim();
+  var body  = document.getElementById('diary-body').value.trim();
+  if (!body) { showInlineError('diary-error', '請填寫訓練內容'); return; }
+  hideInlineError('diary-error');
+  var tags = [];
+  document.querySelectorAll('#diary-tag-row .journal-tag-btn.selected').forEach(function(b) {
+    tags.push(b.textContent);
+  });
+  if (!date) {
+    var now = new Date();
+    date = now.getFullYear() + '/' + String(now.getMonth()+1).padStart(2,'0') + '/' + String(now.getDate()).padStart(2,'0');
+  }
+  diaryEntries.unshift({ date: date, title: title || '訓練紀錄', body: body, tags: tags, ts: Date.now() });
+  saveDiaryEntries();
+  document.getElementById('diary-date').value  = '';
+  document.getElementById('diary-title').value = '';
+  document.getElementById('diary-body').value  = '';
+  document.querySelectorAll('#diary-tag-row .journal-tag-btn.selected').forEach(function(b){ b.classList.remove('selected'); });
+  renderDiaryList();
+}
+
+function deleteDiaryEntry(idx) {
+  diaryEntries.splice(idx, 1);
+  saveDiaryEntries();
+  renderDiaryList();
+}
+
+function renderDiaryList() {
+  var el = document.getElementById('diary-list');
+  if (!el) return;
+  if (diaryEntries.length === 0) {
+    el.innerHTML = '<div class="journal-empty">尚無紀錄，新增第一筆訓練日誌吧！</div>';
+    return;
+  }
+  el.innerHTML = diaryEntries.map(function(e, i) {
+    var tagsHtml = e.tags && e.tags.length
+      ? '<div class="journal-entry-tags">' + e.tags.map(function(t){ return '<span class="journal-entry-tag">' + t + '</span>'; }).join('') + '</div>'
+      : '';
+    return '<div class="journal-entry">'
+      + '<button class="journal-delete-btn" onclick="deleteDiaryEntry(' + i + ')" aria-label="刪除">✕</button>'
+      + '<div class="journal-entry-date">' + e.date + '</div>'
+      + '<div class="journal-entry-title">' + e.title + '</div>'
+      + '<div class="journal-entry-body">' + e.body.replace(/\n/g, '<br>') + '</div>'
+      + tagsHtml
+      + '</div>';
+  }).join('');
+}
+
+document.addEventListener('DOMContentLoaded', function() {
+  renderDiaryList();
+  // set today as default date
+  var di = document.getElementById('diary-date');
+  if (di && !di.value) {
+    var now = new Date();
+    di.value = now.getFullYear() + '-' + String(now.getMonth()+1).padStart(2,'0') + '-' + String(now.getDate()).padStart(2,'0');
+  }
+});
+
+// ===== SCHEDULE GENERATOR =====
+var schedDays  = 4;
+var schedGoal  = 'hypertrophy';
+var schedLevel = 'beginner';
+
+function selectSchedDays(el, n) {
+  schedDays = n;
+  document.querySelectorAll('#sched-days-grid .sched-option').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+function selectSchedGoal(el, g) {
+  schedGoal = g;
+  document.querySelectorAll('#sched-goal-row .sched-option').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+function selectSchedLevel(el, lv) {
+  schedLevel = lv;
+  document.querySelectorAll('#sched-level-row .sched-option').forEach(function(o){ o.classList.remove('selected'); });
+  el.classList.add('selected');
+}
+
+function generateSchedule() {
+  var DAYS_CN = ['週一','週二','週三','週四','週五','週六','週日'];
+
+  // Templates per goal + level
+  var templates = {
+    hypertrophy: {
+      beginner: {
+        2: [
+          { name:'全身 A', badge:'訓練', content:'深蹲 4×8｜臥推 4×8｜划船 4×8｜核心 2×15' },
+          { name:'休息', badge:'休息', content:'主動恢復或有氧' },
+          { name:'全身 B', badge:'訓練', content:'羅馬尼亞硬舉 4×8｜肩推 3×10｜引體向上 3×max｜彎舉 2×12' },
+        ],
+        3: [
+          { name:'全身 A', badge:'訓練', content:'深蹲 4×8｜臥推 4×10｜划船 4×10' },
+          { name:'休息', badge:'休息', content:'拉伸 / 步行' },
+          { name:'全身 B', badge:'訓練', content:'腿推 3×12｜肩推 4×10｜引體向上 3×max｜夾胸 3×12' },
+          { name:'休息', badge:'休息', content:'主動恢復' },
+          { name:'全身 C', badge:'訓練', content:'羅馬尼亞硬舉 4×8｜側平舉 4×15｜彎舉 3×12｜三頭下壓 3×15' },
+        ],
+        4: [
+          { name:'推（胸/肩/三頭）', badge:'訓練', content:'臥推 4×10｜上斜啞鈴 3×12｜肩推 3×10｜側平舉 3×15｜三頭下壓 3×15' },
+          { name:'拉（背/二頭）', badge:'訓練', content:'引體向上 4×max｜坐姿划船 4×10｜高拉 3×12｜彎舉 3×12' },
+          { name:'休息', badge:'休息', content:'主動恢復' },
+          { name:'腿', badge:'訓練', content:'深蹲 4×8｜腿推 3×12｜羅馬尼亞硬舉 3×10｜腿彎舉 3×12' },
+          { name:'休息', badge:'休息', content:'主動恢復或有氧' },
+          { name:'全身輔助', badge:'訓練', content:'夾胸 3×15｜側平舉 4×15｜二頭彎舉 3×12｜核心 3×15' },
+        ],
+        5: [
+          { name:'推', badge:'訓練', content:'臥推 4×8｜上斜臥推 3×10｜肩推 3×10｜三頭 3×12' },
+          { name:'拉', badge:'訓練', content:'引體向上 4×max｜划船 4×10｜高拉 3×12｜彎舉 3×12' },
+          { name:'腿', badge:'訓練', content:'深蹲 4×8｜腿推 3×12｜羅馬尼亞硬舉 3×10｜腿彎舉 3×12' },
+          { name:'推（輔）', badge:'訓練', content:'夾胸 4×12｜側平舉 4×15｜上斜啞鈴 3×12｜核心 3×15' },
+          { name:'拉（輔）', badge:'訓練', content:'高拉 4×12｜臉拉 4×15｜彎舉 4×12｜農夫走路 3組' },
+          { name:'休息', badge:'休息', content:'充分休息' },
+          { name:'休息', badge:'休息', content:'有氧 20–30 min 選配' },
+        ],
+        6: [
+          { name:'推 A', badge:'訓練', content:'臥推 5×5｜上斜啞鈴 4×10｜肩推 4×8｜側平舉 4×15' },
+          { name:'拉 A', badge:'訓練', content:'引體向上 5×max｜划船 4×10｜面拉 4×15｜彎舉 4×12' },
+          { name:'腿 A', badge:'訓練', content:'深蹲 5×5｜腿推 4×12｜腿彎舉 4×12｜小腿 3×20' },
+          { name:'推 B', badge:'訓練', content:'夾胸 4×12｜上斜臥推 4×10｜機械肩推 4×12｜三頭 4×12' },
+          { name:'拉 B', badge:'訓練', content:'高拉 5×10｜坐姿划船 4×10｜啞鈴划船 4×10｜彎舉 4×12' },
+          { name:'腿 B', badge:'訓練', content:'羅馬尼亞硬舉 4×8｜保加利亞分腿蹲 3×10｜腿彎舉 4×12｜小腿 3×20' },
+          { name:'休息', badge:'休息', content:'充分休息' },
+        ],
+      },
+      intermediate: {
+        2: [
+          { name:'上肢', badge:'訓練', content:'臥推 4×6｜划船 4×8｜肩推 3×10｜引體向上 3×max｜彎舉 2×12｜三頭 2×12' },
+          { name:'下肢', badge:'訓練', content:'深蹲 4×6｜羅馬尼亞硬舉 4×8｜腿推 3×10｜腿彎舉 3×12｜小腿 3×15' },
+        ],
+        3: [
+          { name:'推', badge:'訓練', content:'臥推 5×5｜上斜臥推 4×8｜肩推 4×8｜側平舉 3×15' },
+          { name:'拉', badge:'訓練', content:'引體向上 5×max｜划船 4×8｜高拉 3×10｜彎舉 3×12' },
+          { name:'腿', badge:'訓練', content:'深蹲 5×5｜羅馬尼亞硬舉 4×8｜腿推 3×10｜腿彎舉 3×12' },
+        ],
+        4: [
+          { name:'下肢 A（股四頭為主）', badge:'訓練', content:'深蹲 5×5｜腿推 4×10｜保加利亞分腿蹲 3×10｜腿彎舉 3×12' },
+          { name:'上肢 A（推）', badge:'訓練', content:'臥推 5×5｜上斜啞鈴 4×10｜肩推 4×8｜三頭 3×15' },
+          { name:'下肢 B（臀腿後側）', badge:'訓練', content:'羅馬尼亞硬舉 5×6｜腿彎舉 4×12｜臀推 3×15｜小腿 4×15' },
+          { name:'上肢 B（拉）', badge:'訓練', content:'引體向上 5×max｜坐姿划船 4×10｜高拉 3×12｜彎舉 3×12' },
+        ],
+        5: [
+          { name:'推', badge:'訓練', content:'臥推 5×5｜上斜啞鈴 4×10｜肩推 4×8｜側平舉 4×15' },
+          { name:'拉', badge:'訓練', content:'引體向上 5×max｜划船 4×8｜高拉 3×10｜彎舉 4×12' },
+          { name:'腿', badge:'訓練', content:'深蹲 5×5｜腿推 4×10｜羅馬尼亞硬舉 4×8｜腿彎舉 3×12' },
+          { name:'上肢（輔）', badge:'訓練', content:'夾胸 4×12｜側平舉 5×15｜面拉 4×15｜彎舉 4×12' },
+          { name:'弱點訓練', badge:'訓練', content:'視個人弱點：腿推 / 臀推 / 肩膀孤立動作' },
+        ],
+        6: [
+          { name:'推 A', badge:'訓練', content:'臥推 5×5｜上斜臥推 4×8｜肩推 4×8｜側平舉 4×15' },
+          { name:'拉 A', badge:'訓練', content:'引體向上 5×max｜划船 4×8｜高拉 3×12｜彎舉 4×12' },
+          { name:'腿 A（前側）', badge:'訓練', content:'深蹲 5×5｜腿推 4×10｜保加利亞蹲 3×10' },
+          { name:'推 B', badge:'訓練', content:'上斜臥推 5×6｜夾胸 4×12｜肩推 4×8｜三頭 4×12' },
+          { name:'拉 B', badge:'訓練', content:'引體向上 4×max｜坐姿划船 4×10｜單臂划船 4×10｜彎舉 3×12' },
+          { name:'腿 B（後側）', badge:'訓練', content:'羅馬尼亞硬舉 4×8｜臀推 4×12｜腿彎舉 4×12｜小腿 4×15' },
+          { name:'休息', badge:'休息', content:'充分休息' },
+        ],
+      },
+      advanced: {
+        2: [
+          { name:'上肢強化', badge:'訓練', content:'臥推 6×4｜加重引體 5×5｜肩推 4×6｜夾胸 3×12｜彎舉 3×10' },
+          { name:'下肢強化', badge:'訓練', content:'深蹲 6×4｜羅馬尼亞硬舉 5×5｜保加利亞蹲 3×8｜腿彎舉 3×10' },
+        ],
+        3: [
+          { name:'下肢', badge:'訓練', content:'深蹲 6×4–6｜羅馬尼亞硬舉 5×5｜腿推 4×10｜腿彎舉 4×12' },
+          { name:'推', badge:'訓練', content:'臥推 6×4–6｜上斜臥推 5×8｜肩推 4×6｜三頭 4×12' },
+          { name:'拉', badge:'訓練', content:'加重引體 5×5｜划船 5×6｜高拉 4×10｜彎舉 4×12' },
+        ],
+        4: [
+          { name:'腿（前側）', badge:'訓練', content:'深蹲 6×4–6｜腿推 4×8｜保加利亞蹲 4×8｜腿伸展 4×15' },
+          { name:'推', badge:'訓練', content:'臥推 6×4–6｜上斜臥推 5×8｜肩推 4×6｜側平舉 5×15｜三頭 4×12' },
+          { name:'腿（後側）', badge:'訓練', content:'羅馬尼亞硬舉 5×5｜臀推 4×10｜腿彎舉 5×10｜小腿 5×15' },
+          { name:'拉', badge:'訓練', content:'加重引體 5×5｜划船 5×6｜高拉 4×8｜面拉 4×15｜彎舉 4×10' },
+        ],
+        5: [
+          { name:'腿 A（前側主）', badge:'訓練', content:'深蹲 6×4–6｜腿推 4×10｜保加利亞蹲 4×8｜腿伸展 4×15' },
+          { name:'推', badge:'訓練', content:'臥推 6×4–6｜上斜啞鈴 5×8｜肩推 4×6｜側平舉 5×15' },
+          { name:'拉', badge:'訓練', content:'加重引體 5×5｜划船 5×5｜高拉 4×10｜彎舉 4×10' },
+          { name:'腿 B（後側主）', badge:'訓練', content:'羅馬尼亞硬舉 5×5｜臀推 4×12｜腿彎舉 5×10｜小腿 5×15' },
+          { name:'上肢輔助', badge:'訓練', content:'夾胸 4×12｜側平舉 5×15｜面拉 4×15｜彎舉 3×12｜三頭 3×12' },
+        ],
+        6: [
+          { name:'腿 A', badge:'訓練', content:'深蹲 6×3–5｜腿推 5×8｜保加利亞蹲 4×8' },
+          { name:'推 A', badge:'訓練', content:'臥推 6×3–5｜上斜臥推 5×8｜肩推 4×6｜三頭 4×12' },
+          { name:'拉 A', badge:'訓練', content:'加重引體 5×4–6｜划船 5×6｜高拉 4×10｜彎舉 4×12' },
+          { name:'腿 B', badge:'訓練', content:'羅馬尼亞硬舉 5×5｜臀推 4×12｜腿彎舉 5×10｜小腿 5×15' },
+          { name:'推 B', badge:'訓練', content:'夾胸 4×12｜上斜啞鈴 4×10｜側平舉 5×15｜三頭 5×12' },
+          { name:'拉 B', badge:'訓練', content:'坐姿划船 5×8｜單臂划船 4×10｜面拉 5×15｜彎舉 4×12' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      }
+    },
+    strength: {
+      beginner: {
+        3: [
+          { name:'全身 A', badge:'訓練', content:'深蹲 3×5｜臥推 3×5｜硬舉 1×5（每週加重）' },
+          { name:'全身 B', badge:'訓練', content:'深蹲 3×5｜肩推 3×5｜划船 3×5' },
+          { name:'全身 C', badge:'訓練', content:'深蹲 3×5｜臥推 3×5｜硬舉 1×5' },
+        ],
+        4: [
+          { name:'下肢力量', badge:'訓練', content:'深蹲 5×5｜羅馬尼亞硬舉 3×6｜輔助腿後 3×8' },
+          { name:'上肢力量 A', badge:'訓練', content:'臥推 5×5｜划船 5×5｜輔助胸 3×8' },
+          { name:'下肢爆發', badge:'訓練', content:'硬舉 3×3｜腿推 3×10｜臀推 3×12' },
+          { name:'上肢力量 B', badge:'訓練', content:'肩推 5×5｜引體向上 5×max｜輔助 3×10' },
+        ],
+        5: [
+          { name:'深蹲日', badge:'訓練', content:'深蹲 5×5｜輔助：腿推 3×10｜腿彎舉 3×10' },
+          { name:'臥推日', badge:'訓練', content:'臥推 5×5｜輔助：上斜啞鈴 3×10｜三頭 3×12' },
+          { name:'硬舉日', badge:'訓練', content:'硬舉 5×3｜輔助：划船 4×6｜彎舉 3×10' },
+          { name:'肩推日', badge:'訓練', content:'肩推 5×5｜輔助：引體向上 5×max｜側平舉 3×15' },
+          { name:'輔助日', badge:'訓練', content:'腿推 4×8｜坐姿划船 4×8｜核心 3×15' },
+        ],
+        2: [
+          { name:'全身力量', badge:'訓練', content:'深蹲 3×5｜臥推 3×5｜划船 3×5' },
+          { name:'全身力量 B', badge:'訓練', content:'硬舉 3×3｜肩推 3×5｜引體 3×max' },
+        ],
+        6: [
+          { name:'深蹲 A', badge:'訓練', content:'深蹲 5×5｜輔助蹲 4×8' },
+          { name:'臥推 A', badge:'訓練', content:'臥推 5×5｜上斜臥推 4×8' },
+          { name:'硬舉', badge:'訓練', content:'硬舉 5×3｜划船 4×6' },
+          { name:'深蹲 B', badge:'訓練', content:'深蹲 5×5（降重）｜腿推 4×10' },
+          { name:'肩推', badge:'訓練', content:'肩推 5×5｜引體 5×max' },
+          { name:'輔助日', badge:'訓練', content:'輕臥推 4×8｜坐姿划船 4×8｜核心 3×15' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      },
+      intermediate: {
+        3: [
+          { name:'深蹲 / 下肢', badge:'訓練', content:'深蹲 5×3–5｜前蹲 3×5｜腿推 3×8｜腿彎舉 3×10' },
+          { name:'臥推 / 上推', badge:'訓練', content:'臥推 5×3–5｜肩推 4×4–6｜輔助 3×10' },
+          { name:'硬舉 / 背鏈', badge:'訓練', content:'硬舉 4×3–4｜划船 4×5｜引體 4×max｜輔助 3×10' },
+        ],
+        4: [
+          { name:'深蹲日', badge:'訓練', content:'深蹲 5×3–5｜腿推 4×8｜輔助 3×10' },
+          { name:'臥推日', badge:'訓練', content:'臥推 5×3–5｜上斜 4×6｜三頭 3×12' },
+          { name:'硬舉日', badge:'訓練', content:'硬舉 4×2–4｜划船 4×5｜腿彎舉 3×10' },
+          { name:'肩推日', badge:'訓練', content:'肩推 5×4–6｜引體 5×max｜輔助 3×10' },
+        ],
+        5: [
+          { name:'深蹲重日', badge:'訓練', content:'深蹲 5×3｜前蹲 3×5｜腿後 3×10' },
+          { name:'臥推重日', badge:'訓練', content:'臥推 5×3｜肩推 4×6｜三頭 3×12' },
+          { name:'硬舉重日', badge:'訓練', content:'硬舉 5×2–3｜划船 4×5' },
+          { name:'深蹲輕日', badge:'訓練', content:'深蹲 5×5（65–70%）｜腿推 4×10' },
+          { name:'上肢輔助', badge:'訓練', content:'引體 5×max｜坐姿划船 4×8｜彎舉 / 三頭 3×12' },
+        ],
+        2: [
+          { name:'上肢力量', badge:'訓練', content:'臥推 5×3–5｜肩推 4×5｜引體 5×max｜划船 4×5' },
+          { name:'下肢力量', badge:'訓練', content:'深蹲 5×3–5｜硬舉 4×3–4｜腿後 3×10' },
+        ],
+        6: [
+          { name:'深蹲 A（重）', badge:'訓練', content:'深蹲 5×3｜腿推 4×8' },
+          { name:'推 A（重）', badge:'訓練', content:'臥推 5×3｜肩推 4×6' },
+          { name:'拉 A（重）', badge:'訓練', content:'硬舉 4×2–3｜划船 4×5' },
+          { name:'深蹲 B（輕）', badge:'訓練', content:'深蹲 5×5（70%）｜腿後 3×10' },
+          { name:'推 B（輕）', badge:'訓練', content:'上斜臥推 4×8｜三頭 4×12' },
+          { name:'拉 B（輕）', badge:'訓練', content:'引體 5×max｜坐姿划船 4×8｜彎舉 3×12' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      },
+      advanced: {
+        3: [
+          { name:'深蹲極限', badge:'訓練', content:'深蹲 6×2–4｜前蹲 4×4｜腿推 3×8' },
+          { name:'臥推極限', badge:'訓練', content:'臥推 6×2–4｜窄握臥推 4×5｜三頭 4×10' },
+          { name:'硬舉極限', badge:'訓練', content:'硬舉 5×2–3｜划船 5×4｜引體 4×max' },
+        ],
+        4: [
+          { name:'深蹲', badge:'訓練', content:'深蹲 6×2–4｜前蹲 3×5｜輔助蹲 3×8' },
+          { name:'臥推', badge:'訓練', content:'臥推 6×2–4｜上斜 4×6｜三頭 4×10' },
+          { name:'硬舉', badge:'訓練', content:'硬舉 5×2–3｜腿後 4×8｜划船 4×5' },
+          { name:'肩 / 上背', badge:'訓練', content:'肩推 5×4–6｜引體 5×max｜划船 4×6｜面拉 4×15' },
+        ],
+        5: [
+          { name:'深蹲重', badge:'訓練', content:'深蹲 6×2–3｜前蹲 4×3' },
+          { name:'臥推重', badge:'訓練', content:'臥推 6×2–3｜肩推 5×4' },
+          { name:'硬舉', badge:'訓練', content:'硬舉 5×2–3｜划船 5×4' },
+          { name:'深蹲輔助', badge:'訓練', content:'深蹲 5×5（75%）｜腿推 4×8｜腿後 4×10' },
+          { name:'推拉輔助', badge:'訓練', content:'引體 5×max｜上斜 4×6｜三頭 / 彎舉 3×12' },
+        ],
+        2: [
+          { name:'上肢極限', badge:'訓練', content:'臥推 6×2–4｜肩推 5×4–6｜引體 5×max｜划船 5×4' },
+          { name:'下肢極限', badge:'訓練', content:'深蹲 6×2–4｜硬舉 5×2–3｜腿後 4×8' },
+        ],
+        6: [
+          { name:'深蹲 A', badge:'訓練', content:'深蹲 6×2–3｜輔助 4×8' },
+          { name:'臥推 A', badge:'訓練', content:'臥推 6×2–3｜上斜 4×5' },
+          { name:'硬舉', badge:'訓練', content:'硬舉 5×2–3｜划船 5×4' },
+          { name:'深蹲 B', badge:'訓練', content:'前蹲 4×4｜腿後 5×8' },
+          { name:'臥推 B', badge:'訓練', content:'肩推 5×4–6｜引體 5×max' },
+          { name:'輔助', badge:'訓練', content:'各動作輕重量技術組 4×8' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      }
+    },
+    fat: {
+      beginner: {
+        2: [
+          { name:'全身 + 有氧', badge:'訓練', content:'深蹲 3×12｜臥推 3×12｜划船 3×12｜有氧 20min' },
+          { name:'全身 B + 有氧', badge:'訓練', content:'硬舉 3×10｜肩推 3×12｜引體 3×max｜有氧 20min' },
+        ],
+        3: [
+          { name:'上肢', badge:'訓練', content:'臥推 3×12｜划船 3×12｜肩推 3×12｜有氧 15min' },
+          { name:'下肢 + 有氧', badge:'訓練', content:'深蹲 4×12｜腿推 3×15｜腿彎舉 3×12｜有氧 25min' },
+          { name:'全身循環', badge:'訓練', content:'波比跳 / 壺鈴 / 戰繩超級組｜有氧 30min' },
+        ],
+        4: [
+          { name:'上肢力量', badge:'訓練', content:'臥推 4×10｜划船 4×10｜肩推 3×12' },
+          { name:'有氧 / HIIT', badge:'訓練', content:'HIIT 20min 或穩態有氧 40min' },
+          { name:'下肢力量', badge:'訓練', content:'深蹲 4×10｜腿推 3×15｜腿彎舉 3×12' },
+          { name:'全身代謝', badge:'訓練', content:'循環訓練：各動作 15 次 × 3 輪，組間 30s' },
+        ],
+        5: [
+          { name:'上肢 + 有氧', badge:'訓練', content:'推拉動作 4×12｜HIIT 20min' },
+          { name:'下肢 + 有氧', badge:'訓練', content:'深蹲 / 腿推 4×12｜穩態有氧 30min' },
+          { name:'HIIT 日', badge:'訓練', content:'間歇衝刺 / 單車 / 跳繩 30min' },
+          { name:'全身力量', badge:'訓練', content:'全身複合動作 3×10｜核心 3×15' },
+          { name:'有氧 / 步行', badge:'訓練', content:'低強度有氧 45min 或快走' },
+        ],
+        6: [
+          { name:'上肢 A', badge:'訓練', content:'複合推拉 4×12｜HIIT 15min' },
+          { name:'下肢 A', badge:'訓練', content:'深蹲系 4×12｜穩態有氧 30min' },
+          { name:'HIIT', badge:'訓練', content:'高強度間歇 30min' },
+          { name:'上肢 B', badge:'訓練', content:'輔助動作 4×15｜HIIT 15min' },
+          { name:'下肢 B', badge:'訓練', content:'硬舉系 4×10｜穩態有氧 30min' },
+          { name:'主動恢復', badge:'訓練', content:'步行 / 瑜伽 / 游泳 40min' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      },
+      intermediate: {
+        3: [
+          { name:'上肢力量', badge:'訓練', content:'臥推 4×8｜划船 4×8｜肩推 4×10｜HIIT 15min' },
+          { name:'下肢力量', badge:'訓練', content:'深蹲 4×8｜羅馬尼亞硬舉 4×8｜HIIT 15min' },
+          { name:'代謝訓練', badge:'訓練', content:'全身超級組 4×12｜穩態有氧 30min' },
+        ],
+        4: [
+          { name:'推 + 有氧', badge:'訓練', content:'臥推 4×8｜上斜啞鈴 4×10｜肩推 4×8｜HIIT 20min' },
+          { name:'拉 + 有氧', badge:'訓練', content:'引體 4×max｜划船 4×8｜高拉 3×10｜穩態 25min' },
+          { name:'腿 + 有氧', badge:'訓練', content:'深蹲 4×8｜腿推 3×15｜羅馬 4×8｜HIIT 20min' },
+          { name:'全身代謝', badge:'訓練', content:'複合動作超級組 × 4 輪｜穩態有氧 30min' },
+        ],
+        5: [
+          { name:'推', badge:'訓練', content:'臥推 4×8｜上斜 4×10｜肩推 4×8' },
+          { name:'拉', badge:'訓練', content:'引體 4×max｜划船 4×8｜高拉 3×10' },
+          { name:'腿', badge:'訓練', content:'深蹲 4×8｜腿推 3×12｜羅馬 4×8' },
+          { name:'HIIT 日', badge:'訓練', content:'間歇衝刺 / 跳繩 / 戰繩 30min' },
+          { name:'主動恢復 + 有氧', badge:'訓練', content:'穩態有氧 40min｜拉伸 15min' },
+        ],
+        2: [
+          { name:'上肢力量', badge:'訓練', content:'臥推 5×6–8｜划船 5×6–8｜肩推 4×8｜HIIT 20min' },
+          { name:'下肢力量', badge:'訓練', content:'深蹲 5×6–8｜羅馬 4×8｜腿後 3×10｜穩態有氧 30min' },
+        ],
+        6: [
+          { name:'推 + HIIT', badge:'訓練', content:'臥推 4×8｜肩推 4×8｜HIIT 20min' },
+          { name:'拉 + 有氧', badge:'訓練', content:'引體 4×max｜划船 4×8｜穩態 25min' },
+          { name:'腿 + HIIT', badge:'訓練', content:'深蹲 4×8｜腿推 3×12｜HIIT 20min' },
+          { name:'上肢輔助', badge:'訓練', content:'孤立動作 4×15｜穩態有氧 30min' },
+          { name:'腿輔助 + 有氧', badge:'訓練', content:'羅馬 4×8｜臀推 4×12｜步行 40min' },
+          { name:'主動恢復', badge:'訓練', content:'瑜伽 / 游泳 40min' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      },
+      advanced: {
+        3: [
+          { name:'上肢力量 + HIIT', badge:'訓練', content:'臥推 5×5｜划船 5×5｜肩推 4×6｜HIIT 20min' },
+          { name:'下肢力量 + 有氧', badge:'訓練', content:'深蹲 5×5｜羅馬 4×6｜HIIT 20min' },
+          { name:'代謝日', badge:'訓練', content:'全身超級組 5×12｜穩態有氧 45min' },
+        ],
+        4: [
+          { name:'下肢力量', badge:'訓練', content:'深蹲 5×5｜前蹲 3×6｜腿後 4×8' },
+          { name:'上肢推 + HIIT', badge:'訓練', content:'臥推 5×5｜肩推 4×6｜HIIT 25min' },
+          { name:'上肢拉 + 有氧', badge:'訓練', content:'硬舉 4×4｜引體 5×max｜划船 4×6｜穩態 30min' },
+          { name:'代謝全身', badge:'訓練', content:'複合超級組 5×10｜HIIT 25min' },
+        ],
+        5: [
+          { name:'深蹲日', badge:'訓練', content:'深蹲 5×4–6｜前蹲 3×5｜HIIT 15min' },
+          { name:'臥推日', badge:'訓練', content:'臥推 5×4–6｜肩推 4×6｜穩態 25min' },
+          { name:'硬舉日', badge:'訓練', content:'硬舉 4×3–4｜划船 4×5｜穩態 20min' },
+          { name:'HIIT + 輔助', badge:'訓練', content:'全身代謝超級組｜HIIT 30min' },
+          { name:'主動恢復', badge:'訓練', content:'步行 / 游泳 / 瑜伽 45min' },
+        ],
+        2: [
+          { name:'上肢極限 + HIIT', badge:'訓練', content:'臥推 6×3–5｜引體 5×max｜肩推 5×5｜HIIT 20min' },
+          { name:'下肢極限 + 有氧', badge:'訓練', content:'深蹲 6×3–5｜硬舉 5×3｜腿後 4×8｜穩態 30min' },
+        ],
+        6: [
+          { name:'深蹲 + HIIT', badge:'訓練', content:'深蹲 5×4–6｜HIIT 20min' },
+          { name:'臥推 + 有氧', badge:'訓練', content:'臥推 5×4–6｜穩態 25min' },
+          { name:'硬舉 + HIIT', badge:'訓練', content:'硬舉 4×3｜划船 4×5｜HIIT 20min' },
+          { name:'輔助 + 有氧', badge:'訓練', content:'各部位輔助動作 4×12｜穩態 30min' },
+          { name:'腿後 + HIIT', badge:'訓練', content:'羅馬 4×6｜臀推 4×10｜HIIT 25min' },
+          { name:'主動恢復', badge:'訓練', content:'游泳 / 瑜伽 / 步行 40min' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      }
+    },
+    perf: {
+      beginner: {
+        2: [
+          { name:'爆發下肢', badge:'訓練', content:'深蹲跳 4×5｜箱跳 4×5｜深蹲 4×5｜腿後 3×8' },
+          { name:'爆發上肢', badge:'訓練', content:'藥球拋 4×6｜肩推 4×6｜划船 4×6｜核心 3×15' },
+        ],
+        3: [
+          { name:'下肢爆發', badge:'訓練', content:'深蹲跳 4×5｜箱跳 4×5｜深蹲 4×5' },
+          { name:'上肢爆發', badge:'訓練', content:'藥球拋 4×6｜臥推 4×5｜引體 4×max' },
+          { name:'全身輔助', badge:'訓練', content:'單腳蹲 3×8｜腿後 3×10｜核心旋轉 3×15' },
+        ],
+        4: [
+          { name:'下肢爆發', badge:'訓練', content:'深蹲跳 5×5｜箱跳 4×5｜深蹲 4×5｜腿後 3×8' },
+          { name:'上肢爆發', badge:'訓練', content:'藥球推 4×6｜臥推 4×5｜划船 4×6' },
+          { name:'下肢輔助', badge:'訓練', content:'保加利亞蹲 4×8｜臀推 4×10｜踮腳 3×20' },
+          { name:'上肢輔助', badge:'訓練', content:'肩推 4×8｜引體 4×max｜核心 3×15' },
+        ],
+        5: [
+          { name:'下肢爆發', badge:'訓練', content:'箱跳 4×5｜深蹲跳 4×6｜深蹲 4×5' },
+          { name:'上肢爆發', badge:'訓練', content:'藥球推 4×6｜臥推 4×5｜引體 4×max' },
+          { name:'下肢輔助', badge:'訓練', content:'保加利亞蹲 4×8｜腿後 4×10｜臀推 4×12' },
+          { name:'上肢輔助', badge:'訓練', content:'肩推 4×8｜划船 4×8｜核心旋轉 3×15' },
+          { name:'速度 / 敏捷', badge:'訓練', content:'衝刺 / 梯形訓練 / 跳繩 30min' },
+        ],
+        6: [
+          { name:'下肢爆發 A', badge:'訓練', content:'箱跳 4×5｜深蹲跳 4×6｜深蹲 4×5' },
+          { name:'上肢爆發', badge:'訓練', content:'藥球拋 4×6｜臥推 4×5' },
+          { name:'下肢輔助', badge:'訓練', content:'保加利亞蹲 4×8｜腿後 4×10' },
+          { name:'上肢輔助', badge:'訓練', content:'肩推 4×8｜引體 4×max｜核心 3×15' },
+          { name:'速度日', badge:'訓練', content:'短跑衝刺 / 敏捷訓練 30min' },
+          { name:'主動恢復', badge:'訓練', content:'游泳 / 步行 / 拉伸 40min' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      },
+      intermediate: {
+        3: [
+          { name:'下肢爆發', badge:'訓練', content:'高翻 5×3｜深蹲跳 4×5｜深蹲 5×4' },
+          { name:'上肢爆發', badge:'訓練', content:'高抓 5×3｜臥推 5×4｜引體 4×max' },
+          { name:'全身輔助', badge:'訓練', content:'保加利亞蹲 4×6｜肩推 4×6｜核心旋轉 4×12' },
+        ],
+        4: [
+          { name:'高翻 / 深蹲', badge:'訓練', content:'高翻 5×3｜前蹲 4×4｜保加利亞蹲 3×6' },
+          { name:'上肢爆發', badge:'訓練', content:'高抓 5×3｜臥推 5×4｜肩推 4×5' },
+          { name:'腿後 / 臀', badge:'訓練', content:'羅馬尼亞硬舉 4×5｜臀推 4×8｜腿彎舉 4×10' },
+          { name:'上肢輔助', badge:'訓練', content:'引體 5×max｜划船 4×6｜核心 4×15' },
+        ],
+        5: [
+          { name:'高翻日', badge:'訓練', content:'高翻 5×3｜前蹲 4×4｜輔助 3×8' },
+          { name:'臥推日', badge:'訓練', content:'臥推 5×4｜肩推 4×5｜輔助 3×10' },
+          { name:'硬舉日', badge:'訓練', content:'羅馬 4×5｜高抓 5×3｜腿後 3×8' },
+          { name:'速度日', badge:'訓練', content:'衝刺 / 梯形 / 方向變換訓練 40min' },
+          { name:'輔助日', badge:'訓練', content:'弱點強化 + 引體 + 核心旋轉' },
+        ],
+        2: [
+          { name:'下肢爆發 + 力量', badge:'訓練', content:'高翻 5×3｜深蹲 5×4｜腿後 4×8｜箱跳 3×5' },
+          { name:'上肢爆發 + 力量', badge:'訓練', content:'高抓 5×3｜臥推 5×4｜引體 5×max｜肩推 4×5' },
+        ],
+        6: [
+          { name:'高翻 A', badge:'訓練', content:'高翻 5×3｜前蹲 4×4' },
+          { name:'臥推 A', badge:'訓練', content:'臥推 5×4｜肩推 4×5' },
+          { name:'高抓 / 腿後', badge:'訓練', content:'高抓 5×3｜羅馬 4×5｜腿後 3×8' },
+          { name:'速度 / 敏捷', badge:'訓練', content:'短跑 / 梯形 / 方向轉換 40min' },
+          { name:'輔助 / 弱點', badge:'訓練', content:'引體 5×max｜划船 4×6｜核心旋轉 4×15' },
+          { name:'主動恢復', badge:'訓練', content:'游泳 / 步行 / 滾筒放鬆 40min' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      },
+      advanced: {
+        3: [
+          { name:'高翻 / 深蹲極限', badge:'訓練', content:'高翻 6×2–3｜前蹲 5×3｜後蹲 4×3' },
+          { name:'高抓 / 上肢', badge:'訓練', content:'高抓 6×2–3｜臥推 5×3｜肩推 5×4' },
+          { name:'輔助 / 速度', badge:'訓練', content:'腿後 5×5｜核心旋轉 5×12｜速度訓練 30min' },
+        ],
+        4: [
+          { name:'高翻極限', badge:'訓練', content:'高翻 6×2–3｜前蹲 5×3｜腿後 4×5' },
+          { name:'上肢爆發極限', badge:'訓練', content:'高抓 6×2–3｜臥推 5×3｜肩推 5×4' },
+          { name:'速度 / 敏捷', badge:'訓練', content:'短跑 / 複雜步伐訓練 40min' },
+          { name:'輔助強化', badge:'訓練', content:'弱點動作 5×5｜引體 5×max｜核心 5×15' },
+        ],
+        5: [
+          { name:'高翻重日', badge:'訓練', content:'高翻 6×2–3｜前蹲 5×3' },
+          { name:'上肢重日', badge:'訓練', content:'臥推 6×2–3｜肩推 5×4' },
+          { name:'高抓 / 腿後', badge:'訓練', content:'高抓 6×2–3｜羅馬 5×4｜腿後 4×6' },
+          { name:'速度 / 爆發力測試', badge:'訓練', content:'短跑計時 / 箱跳測試 / 敏捷 40min' },
+          { name:'主動恢復', badge:'訓練', content:'游泳 / 步行 / 冷熱水交替 40min' },
+        ],
+        2: [
+          { name:'下肢爆發極限', badge:'訓練', content:'高翻 6×2–3｜前蹲 5×3｜深蹲 5×3' },
+          { name:'上肢爆發極限', badge:'訓練', content:'高抓 6×2–3｜臥推 6×2–3｜肩推 5×4｜引體 5×max' },
+        ],
+        6: [
+          { name:'高翻重日', badge:'訓練', content:'高翻 6×2–3｜前蹲 5×3' },
+          { name:'上肢重日', badge:'訓練', content:'臥推 6×2–3｜肩推 5×3' },
+          { name:'高抓 + 速度', badge:'訓練', content:'高抓 6×2–3｜短跑訓練 30min' },
+          { name:'腿後 + 敏捷', badge:'訓練', content:'羅馬 5×4｜腿後 4×6｜梯形訓練 25min' },
+          { name:'輔助 + 弱點', badge:'訓練', content:'弱點動作 5×5｜核心旋轉 5×12' },
+          { name:'主動恢復', badge:'訓練', content:'游泳 / 步行 40min' },
+          { name:'休息', badge:'休息', content:'完全休息' },
+        ],
+      }
+    }
+  };
+
+  var NOTES = {
+    hypertrophy: {
+      beginner: '💡 初學者建議從全身課表出發，確保每個主要動作每週至少練 2 次。重量應能在指定次數範圍內完成但最後 2 次覺得費力。進步後可過渡到推拉腿分化。',
+      intermediate: '💡 中級者可採用推拉腿或上下肢分化，每個肌群每週 10–20 個工作組。確保有足夠的漸進超負荷，每 2–4 週評估一次是否需要調整重量。',
+      advanced: '💡 進階者需要更精細的週期化設計。建議採用波動週期（Heavy/Light 交替）並定期安排降負荷週（每 4–6 週降低 40% 訓練量）。'
+    },
+    strength: {
+      beginner: '💡 初學者建議使用線性漸進（每次訓練加重 2.5–5kg），將重心放在深蹲、臥推、硬舉、肩推四大主項。技術第一，重量第二。',
+      intermediate: '💡 中級者線性漸進開始停滯，建議轉為週期化（如 Texas Method 或 3×5 + 輔助結構）。每個主項每週至少 1 次重日訓練。',
+      advanced: '💡 進階者建議採用計劃性週期化（波動或線性週期），配合體能測試調整強度。降負荷週、過渡週均需納入規劃。'
+    },
+    fat: {
+      beginner: '💡 減脂核心是熱量赤字，訓練目的是保留肌肉。力量訓練 + 有氧的組合效果優於純有氧。建議赤字控制在 300–500 kcal，避免過度節食導致肌肉流失。',
+      intermediate: '💡 在維持力量水準（或甚至進步）的前提下保留肌肉。有氧選擇低強度穩態（LISS）或 HIIT 均可，兩者在同等消耗下減脂效果相近。',
+      advanced: '💡 進階者在赤字期應保留關鍵力量動作的高強度。有氧量視恢復能力調整，避免過度有氧影響力量恢復。每 4–6 週可安排 1 週飲食休息（diet break）。'
+    },
+    perf: {
+      beginner: '💡 爆發力訓練應在疲勞最低時進行（訓練開頭）。箱跳、深蹲跳重在速度而非高度，起跳要「爆」。先學好動作模式，再追求輸出。',
+      intermediate: '💡 高翻、高抓等奧舉動作是爆發力的核心，建議由有資格的教練指導技術動作。訓練量不需多，每組間需充分休息（3–5min）。',
+      advanced: '💡 爆發力訓練建議採用波動負荷（每週重日/輕日交替），並定期進行跳躍測試（CMJ、SJ）追蹤訓練效果。比賽前 2–3 週開始 tapering。'
+    }
+  };
+
+  var tpl = templates[schedGoal] && templates[schedGoal][schedLevel] && templates[schedGoal][schedLevel][schedDays];
+  if (!tpl) {
+    showInlineError('sched-error', '找不到對應課表，請換一個組合。'); return;
+  }
+  hideInlineError('sched-error');
+
+  var dayNames = ['週一','週二','週三','週四','週五','週六','週日'];
+  var html = '';
+  for (var i = 0; i < 7; i++) {
+    var slot = tpl[i] || { name:'休息', badge:'休息', content:'主動恢復或完全休息' };
+    var isTrain = slot.badge === '訓練';
+    html += '<div class="sched-result-day">'
+      + '<div class="sched-day-name">' + dayNames[i] + ' — '
+      + '<span class="sched-day-badge ' + (isTrain ? 'train' : '') + '">' + slot.badge + '</span>'
+      + '<strong style="margin-left:4px">' + slot.name + '</strong></div>'
+      + '<div class="sched-exercise-list">' + slot.content + '</div></div>';
+  }
+  document.getElementById('sched-result-days').innerHTML = html;
+
+  var note = NOTES[schedGoal] && NOTES[schedGoal][schedLevel] ? NOTES[schedGoal][schedLevel] : '';
+  var noteEl = document.getElementById('sched-notes');
+  noteEl.querySelector ? noteEl.innerHTML = '<div class="info-title">課表說明</div><div class="info-body">' + note + '</div>' : noteEl.textContent = note;
+
+  document.getElementById('sched-result').style.display = 'block';
+  document.getElementById('sched-result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+}
+
+// ===== CALORIE / TDEE CALCULATOR =====
+function calcTDEE() {
+  var sex      = document.getElementById('tdee-sex').value;
+  var age      = parseFloat(document.getElementById('tdee-age').value);
+  var height   = parseFloat(document.getElementById('tdee-height').value);
+  var weight   = parseFloat(document.getElementById('tdee-weight').value);
+  var activity = parseFloat(document.getElementById('tdee-activity').value);
+
+  if (!age || !height || !weight || age <= 0 || height <= 0 || weight <= 0) {
+    showInlineError('tdee-error', '請填入年齡、身高、體重'); return;
+  }
+  hideInlineError('tdee-error');
+
+  // Mifflin-St Jeor
+  var bmr;
+  if (sex === 'male') {
+    bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+  } else {
+    bmr = 10 * weight + 6.25 * height - 5 * age - 161;
+  }
+  var tdee = bmr * activity;
+  var cut  = tdee - 300;
+  var bulk = tdee + 250;
+
+  document.getElementById('tdee-bmr').textContent  = Math.round(bmr)  + ' kcal';
+  document.getElementById('tdee-maint').textContent = Math.round(tdee) + ' kcal';
+  document.getElementById('tdee-cut').textContent   = Math.round(cut)  + ' kcal';
+  document.getElementById('tdee-bulk').textContent  = Math.round(bulk) + ' kcal';
+
+  // Macros (based on maintenance)
+  // Protein: ~2.0 g/kg (ISSN 推薦範圍 1.4–2.0 g/kg，以上限確保肌肉合成)
+  var protG = Math.round(weight * 2.0);
+  var protKcal = protG * 4;
+  var remaining = tdee - protKcal;
+  // 剩餘熱量：碳水 55%、脂肪 45%（確保全部分配，脂肪不低於總熱量 20%）
+  var carbG = Math.round(remaining * 0.55 / 4);
+  var fatG  = Math.round(remaining * 0.45 / 9);
+
+  document.getElementById('macro-prot').textContent = protG + ' g';
+  document.getElementById('macro-carb').textContent = carbG + ' g';
+  document.getElementById('macro-fat').textContent  = fatG  + ' g';
+
+  // Show result area
+  var resultEl = document.getElementById('tdee-result');
+  resultEl.style.display = 'block';
+  resultEl.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
 }
 
 // ===== INIT — single DOMContentLoaded for all tools =====
